@@ -1,0 +1,90 @@
+﻿@model List<DACN.Models.DatDichVu>
+
+<div class="container py-5">
+    
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info text-center border-0 rounded-4 shadow-sm p-4">
+            <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i> Bạn chưa đặt lịch dịch vụ nào.</h5>
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0">
+                    <thead class="table-primary text-white">
+                        <tr>
+                            <th scope="col" style="width: 25%;">Dịch vụ</th>
+                            <th scope="col" style="width: 15%;" class="text-center">Ngày sử dụng</th>
+                            <th scope="col" style="width: 20%;" class="text-center">Khung giờ</th>
+                            <th scope="col" style="width: 10%;" class="text-center">Số lượng</th>
+                            <th scope="col" style="width: 15%;" class="text-center">Trạng thái</th>
+                            <th scope="col" style="width: 15%;">Ghi chú</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var badgeClass = item.TrangThai switch
+                            {
+                                "Chờ xác nhận" => "bg-warning text-dark",
+                                "Đã xác nhận" => "bg-success",
+                                "Đã hủy" => "bg-danger",
+                                _ => "bg-secondary"
+                            };
+
+                            <tr>
+                                <td class="fw-bold text-primary">@item.DichVu?.TenDichVu</td>
+                                <td class="text-center">@item.NgaySuDung?.ToString("dd/MM/yyyy")</td>
+                                <td class="text-center text-dark fw-medium">
+                                    @item.KhungGio?.ToString(@"hh\:mm") - @(item.KhungGio?.Add(TimeSpan.FromHours(1)).ToString(@"hh\:mm"))
+                                </td>
+                                <td class="text-center">@item.SoLuong</td>
+                                <td class="text-center">
+                                    <span class="badge @badgeClass p-2 rounded-pill">
+                                        @item.TrangThai
+                                    </span>
+                                </td>
+                                <td class="text-muted small">
+                                    @(string.IsNullOrEmpty(item.GhiChu) ? "Không" : item.GhiChu)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    /* Định nghĩa màu sắc thương hiệu */
+    :root {
+        --bs-primary: #0a9396; /* Xanh Navy hiện đại */
+        --bs-table-hover-bg: #e6f7f8;
+    }
+
+    .text-primary {
+        color: var(--bs-primary) !important;
+    }
+
+    /* Tạo bảng và header hiện đại */
+    .table-primary {
+        --bs-table-bg: var(--bs-primary);
+        --bs-table-striped-bg: #f0f7f7;
+        vertical-align: middle;
+    }
+
+    /* Cải thiện hover */
+    .table-hover > tbody > tr:hover > td {
+        --bs-table-accent-bg: var(--bs-table-hover-bg);
+    }
+
+    /* Thiết kế card chứa bảng */
+    .card {
+        border: none;
+    }
+</style>

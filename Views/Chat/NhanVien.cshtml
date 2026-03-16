@@ -1,0 +1,156 @@
+﻿@{
+    ViewData["Title"] = "Chat Nhân viên";
+}
+
+<h2 class="text-primary mb-3">💬 Hộp Chat - Nhân viên</h2>
+
+<div class="row">
+    <!-- Danh sách hội thoại -->
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white font-weight-bold">Cuộc trò chuyện</div>
+            <div class="list-group list-group-flush" id="conversationList" style="height:500px;overflow-y:auto;">
+                <div class="p-3 text-muted">Đang tải...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat box -->
+    <div class="col-md-8">
+        <div class="card h-100 shadow-sm">
+            <div class="card-header bg-light">
+                <span id="chatHeader" class="font-weight-bold">Chọn cuộc trò chuyện</span>
+            </div>
+            <div class="card-body d-flex flex-column" id="chatBox" style="height:400px;overflow-y:auto;background:#fafafa;">
+                <div class="m-auto text-muted">Vui lòng chọn một cuộc trò chuyện để bắt đầu.</div>
+            </div>
+            <div class="card-footer">
+                <div class="input-group">
+                    <input id="messageInput" class="form-control" placeholder="Nhập tin nhắn..." disabled />
+                    <button id="sendButton" class="btn btn-primary" disabled>Gửi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        const userName = "@User.Identity?.Name";
+        const userRole = "NhanVien"; // Giả định role nhân viên
+        let currentConversationId = null;
+        const chatBox = document.getElementById("chatBox");
+        const messageInput = document.getElementById("messageInput");
+        const sendButton = document.getElementById("sendButton");
+
+        // Hàm tạo tin nhắn UI
+        function createMessageBubble(senderName, messageContent, time, isCurrentUser) {
+            const wrapper = document.createElement("div");
+            wrapper.className = `d-flex mb-2 ${isCurrentUser ? 'justify-content-end' : 'justify-content-start'}`;
+
+            const bubble = document.createElement("div");
+            bubble.className = `p-2 rounded shadow-sm ${isCurrentUser ? 'bg-primary text-white' : 'bg-light text-dark'}`;
+            bubble.style.maxWidth = '70%';
+
+            bubble.innerHTML = `
+                <div><strong>${senderName}:</strong> ${messageContent}</div>
+                <div class="small mt-1 text-end ${isCurrentUser ? 'text-light' : 'text-muted'}">${time}</div>
+            `;
+
+            wrapper.appendChild(bubble);
+            return wrapper;
+        }
+
+        const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        connection.on("ReceiveMessage", (conversationId, senderRole, senderName, message, time) => {
+            // Cập nhật danh sách (tạm thời load lại) hoặc thêm badge
+            loadConversations();
+
+            if (conversationId == currentConversationId) {
+                const isCurrentUser = senderName === userName;
+                const msgDiv = createMessageBubble(senderName, message, time, isCurrentUser);
+                chatBox.appendChild(msgDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        });
+
+        connection.start().then(loadConversations).catch(err => console.error("SignalR Connection Error: ", err));
+
+        function loadConversations() {
+            fetch('/Chat/GetConversations')
+                .then(res => res.json())
+                .then(data => {
+                    const list = document.getElementById("conversationList");
+                    list.innerHTML = "";
+                    if (data.length === 0) {
+                         list.innerHTML = '<div class="p-3 text-muted text-center">Không có cuộc trò chuyện nào</div>';
+                         return;
+                    }
+                    data.forEach(c => {
+                        const item = document.createElement("a");
+                        item.href = "#";
+                        item.className = "list-group-item list-group-item-action";
+                        if (c.id == currentConversationId) {
+                            item.classList.add('active');
+                        }
+                        // Thêm badge/label cho tin nhắn chưa đọc nếu cần (logic này cần được hỗ trợ từ Backend)
+                        item.textContent = `${c.tenKhachHang} - [${c.lastMessage?.noiDung.substring(0, 20) || 'Bắt đầu chat'}]`;
+                        item.onclick = (e) => {
+                            e.preventDefault();
+                            document.querySelectorAll('#conversationList a').forEach(el => el.classList.remove('active'));
+                            item.classList.add('active');
+                            openConversation(c.id, c.tenKhachHang);
+                        };
+                        list.appendChild(item);
+                    });
+                })
+                .catch(err => {
+                    document.getElementById("conversationList").innerHTML = '<div class="p-3 text-danger text-center">Lỗi tải danh sách chat.</div>';
+                    console.error("Error loading conversations:", err);
+                });
+        }
+
+        function openConversation(id, name) {
+            currentConversationId = id;
+            document.getElementById("chatHeader").textContent = "Chat với " + name;
+            messageInput.disabled = false;
+            sendButton.disabled = false;
+            chatBox.innerHTML = "";
+            chatBox.classList.remove('d-flex');
+
+            fetch(`/Chat/GetMessages?conversationId=${id}`)
+                .then(res => res.json())
+                .then(msgs => {
+                    msgs.forEach(m => {
+                        // So sánh vai trò gửi (GuiBoiRole) hoặc tên người gửi (GuiBoiName) với userName
+                        const isCurrentUser = m.guiBoiName === userName;
+                        const msgDiv = createMessageBubble(m.guiBoiName, m.noiDung, m.thoiGian, isCurrentUser);
+                        chatBox.appendChild(msgDiv);
+                    });
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                })
+                .catch(err => {
+                    chatBox.innerHTML = `<div class="p-3 text-danger text-center">Lỗi tải tin nhắn.</div>`;
+                    console.error("Error loading messages:", err);
+                });
+        }
+
+        document.getElementById("sendButton").addEventListener("click", async () => {
+            const msg = messageInput.value.trim();
+            if (!msg || !currentConversationId) return;
+
+            try {
+                // 1. Gửi tin nhắn qua SignalR Hub (Hub sẽ đảm nhận lưu DB và broadcast)
+                await connection.invoke("SendMessage", currentConversationId, userRole, userName, msg);
+
+                // 2. Cập nhật UI ngay lập tức (ReceiveMessage sẽ làm điều này)
+                messageInput.value = "";
+            } catch (err) {
+                console.error("Error sending message:", err);
+                alert("Gửi tin nhắn thất bại. Vui lòng thử lại.");
+            }
+        });
+    </script>
+}

@@ -1,0 +1,111 @@
+﻿@model IEnumerable<DACN.Models.ChamCong>
+@{
+    ViewData["Title"] = "Lịch sử chấm công của tôi";
+}
+
+<div class="container py-5">
+
+   
+
+    @if (Model.Any())
+    {
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <div class="d-grid gap-4">
+                    @foreach (var item in Model)
+                    {
+                        var isFinished = item.NgayGioKetCa.HasValue;
+                        var cardBg = isFinished ? "bg-white" : "bg-warning-light"; // Màu nền nhạt cho ca chưa kết
+                        var statusBorder = isFinished ? "border-success" : "border-warning";
+                        var statusText = isFinished ? "Đã kết ca" : "Đang diễn ra";
+                        var statusBadge = isFinished ? "bg-success" : "bg-warning text-dark";
+
+                        <div class="card p-4 shadow-sm border-3 rounded-4 @cardBg @statusBorder" style="border-left-style: solid !important;">
+                            <div class="d-flex w-100 align-items-center">
+
+                                <div class="me-4 text-center flex-shrink-0">
+                                    @if (!string.IsNullOrEmpty(item.AnhNhanDienKhuonMat))
+                                    {
+                                        <img src="@item.AnhNhanDienKhuonMat"
+                                             class="rounded-circle shadow-sm border border-secondary"
+                                             alt="Ảnh nhận diện"
+                                             style="width:90px;height:90px;object-fit:cover;" />
+                                    }
+                                    else
+                                    {
+                                        <div class="rounded-circle bg-light text-muted d-flex align-items-center justify-content-center border" style="width:90px;height:90px;"><i class="bi bi-person-circle fs-2"></i></div>
+                                    }
+                                </div>
+
+                                <div class="flex-grow-1 mx-3 border-start ps-4">
+                                    <h5 class="mb-2 fw-bold text-primary">
+                                        Ngày: @item.NgayGioVaoCa.ToString("dd/MM/yyyy")
+                                    </h5>
+
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <small class="text-success d-block fw-semibold"><i class="bi bi-arrow-right-circle-fill me-1"></i> VÀO CA</small>
+                                            <span class="fs-4 fw-bolder text-success">@item.NgayGioVaoCa.ToString("HH:mm")</span>
+                                        </div>
+                                        <div class="col-6">
+                                            <small class="text-danger d-block fw-semibold"><i class="bi bi-arrow-left-circle-fill me-1"></i> KẾT CA</small>
+                                            <span class="fs-4 fw-bolder @(isFinished ? "text-danger" : "text-muted")">
+                                                @(item.NgayGioKetCa?.ToString("HH:mm") ?? "---")
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-2" />
+                                    <small class="text-secondary fw-semibold">Ghi chú:</small>
+                                    <p class="mb-0 fst-italic text-break">
+                                        @(string.IsNullOrEmpty(item.GhiChu) ? "Không có ghi chú." : item.GhiChu)
+                                    </p>
+                                </div>
+
+                                <div class="text-end flex-shrink-0">
+                                    <span class="badge rounded-pill fs-6 px-3 py-2 fw-bold @statusBadge" style="width:120px;">
+                                        @statusText
+                                    </span>
+
+                                    @if (isFinished && item.NgayGioKetCa.HasValue)
+                                    {
+                                        var duration = item.NgayGioKetCa.Value - item.NgayGioVaoCa;
+                                        <div class="mt-2 text-muted">
+                                            <small>Tổng:</small>
+                                            <p class="mb-0 fw-bold text-dark">
+                                                @duration.Hours giờ @duration.Minutes phút
+                                            </p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <style>
+                    /* Custom style cho ca chưa kết thúc */
+                    .bg-warning-light {
+                        background-color: #fffde7 !important;
+                        border-left: 6px solid #ffc107 !important; /* Viền nổi bật */
+                    }
+                </style>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center shadow-sm p-4 mt-4">
+            <h4 class="alert-heading"><i class="bi bi-info-circle-fill me-2"></i> Không có dữ liệu</h4>
+            <p class="mb-0">Bạn chưa có lịch sử chấm công nào được ghi nhận.</p>
+        </div>
+    }
+
+    <div class="text-center mt-5">
+        <a class="btn btn-secondary btn-lg px-5 shadow-sm" asp-action="Index">
+            <i class="bi bi-arrow-left-circle-fill me-2"></i> Quay lại chấm công
+        </a>
+    </div>
+</div>

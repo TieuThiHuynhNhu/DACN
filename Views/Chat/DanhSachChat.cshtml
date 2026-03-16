@@ -1,0 +1,439 @@
+﻿@{
+    ViewData["Title"] = "Trung Tâm Điều Hành Hỗ Trợ AI";
+}
+
+<style>
+    /* Style cao cấp cho trạm hỗ trợ */
+    .chat-container {
+        background: #f1f5f9;
+        min-height: 88vh;
+        border-radius: 1.5rem;
+        overflow: hidden;
+    }
+
+    .convo-item {
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        border-left: 4px solid transparent;
+        position: relative;
+    }
+
+        .convo-item.active {
+            background: #e0f2fe;
+            border-left-color: #0ea5e9;
+        }
+
+        .convo-item:hover:not(.active) {
+            background: #f8fafc;
+        }
+
+    .unread-indicator {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 10px;
+        height: 10px;
+        background-color: #ef4444;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+    }
+
+    .chat-bubble {
+        max-width: 75%;
+        border-radius: 1.25rem;
+        position: relative;
+        margin-bottom: 0.8rem;
+        padding: 12px 16px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    .bubble-staff {
+        background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+        color: white;
+        margin-left: auto;
+        border-bottom-right-radius: 0.3rem;
+    }
+
+    .bubble-customer {
+        background: white;
+        color: #1e293b;
+        border-bottom-left-radius: 0.3rem;
+        border: 1px solid #e2e8f0;
+    }
+
+    .bubble-ai {
+        background: #f0f9ff;
+        border: 1px dashed #0ea5e9;
+        color: #0369a1;
+        font-style: italic;
+    }
+
+    /* Hiệu ứng đang soạn tin (Typing) */
+    .typing-dots {
+        display: flex;
+        gap: 4px;
+        padding: 8px 15px;
+    }
+
+    .dot {
+        width: 6px;
+        height: 6px;
+        background: #94a3b8;
+        border-radius: 50%;
+        animation: blink 1.4s infinite both;
+    }
+
+        .dot:nth-child(2) {
+            animation-delay: .2s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: .4s;
+        }
+    keyframes blink {
+        0%
+
+    {
+        opacity: .2;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: .2;
+    }
+
+    }
+
+    #new-message-toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        display: none;
+        animation: slideIn 0.5s ease-out;
+    }
+    keyframes slideIn {
+        from
+
+    {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+
+    }
+
+    .search-chat {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 50px;
+        padding: 8px 15px 8px 35px;
+        font-size: 0.85rem;
+    }
+</style>
+
+<!-- Toast thông báo tin nhắn mới -->
+<div id="new-message-toast" class="bg-white shadow-2xl border-l-4 border-primary p-4 rounded-xl flex items-center gap-4" style="width: 320px;">
+    <div class="bg-primary/10 p-2 rounded-full text-primary">
+        <i class="bi bi-chat-dots-fill fs-4"></i>
+    </div>
+    <div class="flex-1 overflow-hidden">
+        <p class="fw-bold mb-0 text-dark small" id="toast-sender">...</p>
+        <p class="text-muted mb-0 smaller truncate" id="toast-msg" style="font-size: 0.75rem;">...</p>
+    </div>
+    <button onclick="closeToast()" class="btn-close btn-sm"></button>
+</div>
+
+<div class="chat-container shadow-2xl border flex flex-col md:flex-row mt-4">
+    <!-- CỘT TRÁI: DANH SÁCH HỘI THOẠI -->
+    <div class="w-full md:w-1/3 border-r bg-white flex flex-col">
+        <div class="p-4 bg-white border-b">
+            <div class="flex justify-between items-center mb-3">
+                <h5 class="fw-black mb-0 text-dark tracking-tighter uppercase small">Quản lý hỗ trợ</h5>
+                <div class="flex gap-2">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <button onclick="cleanupOldMessages()" class="btn btn-sm btn-outline-danger border-0 p-1" title="Dọn dẹp tin nhắn cũ">
+                            <i class="bi bi-brush"></i>
+                        </button>
+                    }
+                    <span class="badge bg-success rounded-pill" style="font-size: 10px;">ONLINE</span>
+                </div>
+            </div>
+            <!-- Thanh tìm kiếm nhanh -->
+            <div class="relative">
+                <i class="bi bi-search absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                <input type="text" id="convoSearch" class="w-full search-chat focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Tìm tên khách hàng...">
+            </div>
+        </div>
+        <div class="flex-1 overflow-y-auto" id="conversationList">
+            <div class="p-10 text-center text-muted italic small">Đang đồng bộ...</div>
+        </div>
+    </div>
+
+    <!-- CỘT PHẢI: CHI TIẾT CHAT -->
+    <div class="flex-1 flex flex-col bg-slate-50 relative">
+        <!-- Header Chi tiết -->
+        <div class="p-4 bg-white border-b shadow-sm flex items-center justify-between sticky top-0 z-20">
+            <div class="flex items-center gap-3">
+                <div id="active-user-avatar" class="w-11 h-11 rounded-2xl bg-gradient-to-br from-primary to-blue-700 text-white flex items-center justify-center font-bold shadow-lg">?</div>
+                <div>
+                    <h6 class="fw-bold mb-0 text-dark" id="chatHeader">Chọn hội thoại</h6>
+                    <div class="flex items-center gap-2">
+                        <small class="text-muted" id="chatSubHeader">Đang chờ kết nối</small>
+                        <div id="typingIndicator" class="hidden">
+                            <div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <!-- ⭐ Nút AI Tool mới ⭐ -->
+                <button id="btnAiSuggest" onclick="getAiSummary()" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold" style="display:none;" title="AI tóm tắt nội dung chat">
+                    <i class="bi bi-robot me-1"></i> AI Tóm tắt
+                </button>
+                <button id="btnClearChat" onclick="clearCurrentChat()" class="btn btn-sm btn-light border rounded-pill px-3" style="display: none;">
+                    <i class="bi bi-trash3"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Khung tin nhắn -->
+        <div class="flex-1 overflow-y-auto p-5 space-y-2" id="chatBox">
+            <div class="h-full flex items-center justify-center text-muted flex-col opacity-40">
+                <i class="bi bi-chat-left-dots display-1 mb-3"></i>
+                <p class="fw-bold uppercase tracking-widest small">Khu vực phản hồi khách hàng</p>
+            </div>
+        </div>
+
+        <!-- Input gửi tin -->
+        <div class="p-4 bg-white border-t">
+            <div class="input-group shadow-lg rounded-4 overflow-hidden border p-1 bg-white">
+                <input id="messageInput" class="form-control border-0 ps-4 py-3 bg-transparent" placeholder="Nhập phản hồi cho khách..." disabled />
+                <button id="sendButton" class="btn btn-primary px-4 rounded-4" disabled>
+                    <i class="bi bi-send-fill fs-5"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        const userName = "@User.Identity?.Name";
+        let currentConversationId = null;
+        let allConversations = [];
+        let unreadCount = {}; // Lưu trữ số tin chưa đọc theo convoId
+
+        const chatBox = document.getElementById("chatBox");
+        const messageInput = document.getElementById("messageInput");
+        const sendButton = document.getElementById("sendButton");
+        const conversationList = document.getElementById("conversationList");
+        const typingIndicator = document.getElementById("typingIndicator");
+
+        // 1. KẾT NỐI SIGNALR
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chatHub")
+            .withAutomaticReconnect()
+            .build();
+
+        // 2. LẮNG NGHE SỰ KIỆN
+        connection.on("ReceiveMessage", (convoId, role, sender, message, time) => {
+            if (convoId.toString() === currentConversationId?.toString()) {
+                appendMessage(sender, message, role, time);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } else if (role !== "NhanVien") {
+                // Tăng số tin chưa đọc cho hội thoại này
+                unreadCount[convoId] = (unreadCount[convoId] || 0) + 1;
+            }
+            loadConversations();
+        });
+
+        connection.on("ChatCleared", (convoId) => {
+            if (convoId.toString() === currentConversationId?.toString()) {
+                chatBox.innerHTML = '<div class="text-center p-10 text-muted italic">Hội thoại đã được làm sạch.</div>';
+            }
+            loadConversations();
+        });
+
+        connection.on("NewMessageAlert", (convoId, customerName, message) => {
+            if (convoId.toString() !== currentConversationId?.toString()) {
+                showNotification(customerName, message);
+                playNotificationSound();
+            }
+        });
+
+        // ⭐ 3. LẮNG NGHE HIỆU ỨNG TYPING (Sẵn sàng cho nâng cấp Hub)
+        connection.on("UserTyping", (convoId, isTyping) => {
+            if (convoId.toString() === currentConversationId?.toString()) {
+                typingIndicator.className = isTyping ? "block" : "hidden";
+                document.getElementById("chatSubHeader").innerText = isTyping ? "Đang gõ..." : "Đang trực tuyến";
+            }
+        });
+
+        // 4. BẮT ĐẦU KẾT NỐI
+        connection.start().then(() => {
+            connection.invoke("JoinStaffGroup").catch(err => console.error(err));
+            loadConversations();
+        });
+
+        // --- HÀM XỬ LÝ DỮ LIỆU ---
+
+        function loadConversations() {
+            fetch('/Chat/GetConversations')
+                .then(res => res.json())
+                .then(data => {
+                    allConversations = data;
+                    renderConversationList(data);
+                });
+        }
+
+        function renderConversationList(data) {
+            const searchTerm = document.getElementById("convoSearch").value.toLowerCase();
+            conversationList.innerHTML = "";
+
+            data.filter(c => c.tenKhachHang.toLowerCase().includes(searchTerm)).forEach(c => {
+                const isUnread = unreadCount[c.id] > 0;
+                const item = document.createElement("div");
+                item.className = `p-4 convo-item border-bottom ${c.id == currentConversationId ? 'active' : ''}`;
+                item.innerHTML = `
+                    ${isUnread ? '<div class="unread-indicator"></div>' : ''}
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="fw-bold text-dark text-uppercase" style="font-size: 13px;">${c.tenKhachHang}</span>
+                        <small class="text-muted" style="font-size: 10px;">${c.lastMessageTime || ''}</small>
+                    </div>
+                    <p class="mb-0 text-muted smaller truncate ${isUnread ? 'fw-bold text-dark' : ''}" style="font-size: 12px;">
+                        ${isUnread ? `[${unreadCount[c.id]} tin mới] ` : ''}${c.lastMessage || 'Chưa có tin nhắn'}
+                    </p>
+                `;
+                item.onclick = () => openConversation(c.id, c.tenKhachHang);
+                conversationList.appendChild(item);
+            });
+        }
+
+        async function openConversation(id, name) {
+            currentConversationId = id;
+            unreadCount[id] = 0; // Xóa thông báo tin chưa đọc khi đã mở
+
+            document.getElementById("chatHeader").innerText = name;
+            document.getElementById("active-user-avatar").innerText = name.substring(0, 1).toUpperCase();
+            document.getElementById("btnClearChat").style.display = "block";
+            document.getElementById("btnAiSuggest").style.display = "block";
+            document.getElementById("chatSubHeader").innerText = "Đang trực tuyến";
+
+            messageInput.disabled = false;
+            sendButton.disabled = false;
+            chatBox.innerHTML = '<div class="text-center p-10 text-muted small"><i class="bi bi-arrow-repeat animate-spin d-inline-block"></i> Đang tải dữ liệu...</div>';
+
+            await connection.invoke("JoinConversation", id.toString());
+
+            fetch(`/Chat/GetMessages?conversationId=${id}`)
+                .then(res => res.json())
+                .then(msgs => {
+                    chatBox.innerHTML = "";
+                    msgs.forEach(m => appendMessage(m.guiBoiName, m.noiDung, m.guiBoiRole, m.thoiGian));
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                });
+
+            renderConversationList(allConversations);
+        }
+
+        // ⭐ 5. TÓM TẮT HỘI THOẠI BẰNG AI GEMINI ⭐
+        async function getAiSummary() {
+            if(!currentConversationId) return;
+            const btn = document.getElementById("btnAiSuggest");
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="bi bi-hourglass-split animate-spin"></i> Chờ AI...';
+            btn.disabled = true;
+
+            try {
+                // Chúng ta sẽ lấy nội dung chat hiện tại và gửi yêu cầu tóm tắt
+                const msgs = Array.from(chatBox.querySelectorAll('.chat-bubble div:nth-child(2)')).map(d => d.innerText).join('\n');
+                const prompt = "Hãy tóm tắt ngắn gọn 3 dòng yêu cầu chính của khách hàng trong hội thoại này:\n" + msgs;
+
+                // Gọi API Gemini trực tiếp (giả lập thông qua SendMessage với keyword AI_SUMMARY)
+                // Lưu ý: Tính năng này yêu cầu ChatController hỗ trợ Action SummarizeChat
+                alert("AI đang phân tích...\n\nTính năng này sẽ trích xuất: \n1. Vấn đề khách đang gặp.\n2. Yêu cầu của khách.\n3. Gợi ý hướng xử lý.");
+
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        function appendMessage(sender, text, role, time) {
+            const isStaff = (role === "NhanVien" || role === "Admin");
+            const isAI = (role === "AI");
+            const div = document.createElement("div");
+            div.className = `chat-bubble ${isStaff ? 'bubble-staff' : (isAI ? 'bubble-ai' : 'bubble-customer')}`;
+
+            div.innerHTML = `
+                <div class="smaller fw-bold mb-1 uppercase" style="font-size: 10px; opacity: 0.8;">
+                    ${isAI ? '🤖 SeaHotel Assistant' : sender}
+                </div>
+                <div style="font-size: 14px;">${text}</div>
+                <div class="text-end mt-1" style="font-size: 10px; opacity: 0.6;">${time}</div>
+            `;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const msg = messageInput.value.trim();
+            if (!msg || !currentConversationId) return;
+
+            fetch('/Chat/SendMessage', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `conversationId=${currentConversationId}&message=${encodeURIComponent(msg)}`
+            });
+            messageInput.value = "";
+        }
+
+        // Sự kiện Search
+        document.getElementById("convoSearch").oninput = () => renderConversationList(allConversations);
+
+        // Phát tín hiệu Typing khi nhân viên gõ
+        messageInput.oninput = () => {
+             // Logic: Gửi tín hiệu Typing tới Hub (Yêu cầu Hub thêm hàm NotifyTyping)
+             // connection.invoke("NotifyTyping", currentConversationId.toString(), true);
+        };
+
+        sendButton.onclick = sendMessage;
+        messageInput.onkeypress = (e) => { if(e.key === "Enter") sendMessage(); };
+
+        function showNotification(name, msg) {
+            const toast = document.getElementById("new-message-toast");
+            document.getElementById("toast-sender").innerText = "Khách: " + name;
+            document.getElementById("toast-msg").innerText = msg;
+            toast.style.display = "flex";
+            setTimeout(() => toast.style.display = "none", 8000);
+        }
+
+        function closeToast() { document.getElementById("new-message-toast").style.display = "none"; }
+
+        function playNotificationSound() {
+            new Audio('https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3').play().catch(e => {});
+        }
+
+        async function clearCurrentChat() {
+            if (!currentConversationId || !confirm("Xóa lịch sử chat này?")) return;
+            fetch('/Chat/ClearConversation', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `conversationId=${currentConversationId}`
+            }).then(res => res.json()).then(d => { if(!d.success) alert(d.message); });
+        }
+
+        async function cleanupOldMessages() {
+            if (!confirm("Hệ thống sẽ xóa vĩnh viễn tin nhắn > 30 ngày. Tiếp tục?")) return;
+            fetch('/Chat/DeleteOldMessages', { method: 'POST' }).then(res => res.json()).then(d => alert(d.message));
+        }
+    </script>
+}

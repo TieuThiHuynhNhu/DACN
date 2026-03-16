@@ -1,0 +1,120 @@
+﻿@model DACN.Models.DatPhong
+
+@{
+    ViewData["Title"] = "Chỉnh sửa đặt phòng";
+    // Định nghĩa màu sắc theme cho nhất quán
+    var primaryColor = "#0a9396"; // Màu xanh Navy
+    var successColor = "#28a745"; // Màu xanh lá cho Lưu
+}
+
+<style>
+    /* Style cho Card chính */
+    .edit-booking-card {
+        border-radius: 1rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: none;
+    }
+
+    .card-header {
+        background-color: @primaryColor !important;
+        border-top-left-radius: 1rem !important;
+        border-top-right-radius: 1rem !important;
+    }
+    /* Style cho Label và Input */
+    .form-label i {
+        color: @primaryColor;
+        margin-right: 5px;
+    }
+
+    .form-control, .form-select {
+        border-radius: 0.5rem;
+    }
+    /* Style cho nút */
+    .btn-save-custom {
+        background-color: @successColor;
+        border-color: @successColor;
+        color: white;
+        font-weight: bold;
+        transition: background-color 0.2s;
+    }
+
+        .btn-save-custom:hover {
+            background-color: #1e7e34;
+            border-color: #1e7e34;
+        }
+</style>
+
+<div class="container py-5">
+    <div class="card edit-booking-card mx-auto" style="max-width:700px;">
+
+        @* HEADER *@
+        <div class="card-header text-white text-center fs-4 fw-bold p-3">
+            <i class="bi bi-pencil-square me-2"></i> CHỈNH SỬA ĐẶT PHÒNG #@Model.MaDatPhong
+        </div>
+
+        <div class="card-body p-4 p-md-5">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="MaDatPhong" />
+                @* Đảm bảo thêm validation summary *@
+                <div asp-validation-summary="All" class="alert alert-danger mb-4 small"></div>
+
+                @* --- THÔNG TIN LIÊN QUAN (ĐỌC) --- *@
+                @* Hiển thị thông tin khách hàng và phòng để người dùng dễ theo dõi *@
+                <div class="row mb-4 bg-light p-3 rounded-3 border-start border-3" style="border-color: @primaryColor !important;">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label class="form-label fw-bold small text-muted">Khách hàng</label>
+                        <p class="form-control-plaintext fw-bold">@Model.KhachHang?.HoTen</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small text-muted">Loại phòng</label>
+                        <p class="form-control-plaintext fw-bold">@Model.Phong?.LoaiPhong (Mã: @Model.MaPhong)</p>
+                    </div>
+                </div>
+
+                @* Ghi chú *@
+                <div class="mb-4">
+                    <label class="form-label fw-semibold"><i class="bi bi-chat-left-text-fill"></i> Ghi chú</label>
+                    <textarea asp-for="GhiChu" class="form-control" rows="3" placeholder="Nhập yêu cầu đặc biệt hoặc ghi chú..."></textarea>
+                    <span asp-validation-for="GhiChu" class="text-danger small"></span>
+                </div>
+
+                @* Hình thức thanh toán (Sử dụng Select cho chuẩn hóa dữ liệu) *@
+                <div class="mb-4">
+                    <label class="form-label fw-semibold"><i class="bi bi-credit-card-2-front-fill"></i> Hình thức thanh toán</label>
+                    <select asp-for="HinhThucThanhToan" class="form-select">
+                        <option value="VNPay">VNPay</option>
+                        <option value="MoMo">MoMo</option>
+                        <option value="Tiền mặt">Tiền mặt</option>
+                    </select>
+                    <span asp-validation-for="HinhThucThanhToan" class="text-danger small"></span>
+                </div>
+
+                @* Ngày đặt & Ngày nhận *@
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold"><i class="bi bi-calendar-plus-fill"></i> Ngày đặt</label>
+                        @* **CHỈ DÙNG asp-for**: Để MVC tự định dạng giá trị cho input type="datetime-local" *@
+                        <input asp-for="NgayDat" class="form-control" type="datetime-local" />
+                        <span asp-validation-for="NgayDat" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold"><i class="bi bi-calendar-check-fill"></i> Ngày nhận</label>
+                        @* **CHỈ DÙNG asp-for**: Để MVC tự định dạng giá trị cho input type="datetime-local" *@
+                        <input asp-for="NgayNhan" class="form-control" type="datetime-local" />
+                        <span asp-validation-for="NgayNhan" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                @* Nút Hành động *@
+                <div class="d-flex justify-content-center gap-3 mt-5">
+                    <a asp-action="Index" class="btn btn-secondary px-5 rounded-pill fw-bold">
+                        <i class="bi bi-arrow-left-circle-fill me-1"></i> Quay lại
+                    </a>
+                    <button type="submit" class="btn btn-save-custom px-5 rounded-pill shadow">
+                        <i class="bi bi-save-fill me-1"></i> LƯU THAY ĐỔI
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

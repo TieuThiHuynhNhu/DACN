@@ -1,0 +1,185 @@
+﻿@model DACN.Models.ViewModel.CPayViewModel
+@{
+    Layout = null;
+
+    // ============================================================
+    // ⭐ CẤU HÌNH THÔNG TIN NGÂN HÀNG CỦA BẠN ĐỂ TEST ĐỒ ÁN ⭐
+    // ============================================================
+    // Mã ngân hàng (vcb, mbb, icb, acb, tcb, vtb, stb, vbi...)
+    var nganHang = "vcb";
+
+    // Điền số tài khoản CỦA BẠN vào đây để khi quét nó hiện tên bạn
+    var soTaiKhoan = "1027236597";
+
+    // Điền tên bạn (KHÔNG DẤU)
+    var chuTaiKhoan = "TIEU THI HUYNH NHU";
+    // ============================================================
+
+    // Tạo link VietQR chuẩn (Sử dụng mẫu compact2 để QR gọn đẹp)
+    var vietQrUrl = $"https://img.vietqr.io/image/{nganHang}-{soTaiKhoan}-compact2.jpg?amount={Model.SoTien}&addInfo={Uri.EscapeDataString(Model.NoiDung)}&accountName={Uri.EscapeDataString(chuTaiKhoan)}";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán VietQR - SeaHotel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .cpay-card {
+            border-top: 8px solid #1e40af;
+        }
+
+        #successOverlay {
+            display: none;
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+
+        .checkmark-circle {
+            color: #10b981;
+            font-size: 100px;
+            animation: scaleUp 0.5s ease-out;
+        }
+        keyframes scaleUp {
+            from
+
+        {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        }
+
+        .gradient-blue {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen relative overflow-hidden">
+
+    <!-- Lớp phủ thành công và trình đọc giọng nói -->
+    <div id="successOverlay" class="absolute inset-0 flex flex-col items-center justify-center bg-white/95">
+        <div class="checkmark-circle mb-4">
+            <i class="bi bi-check-circle-fill"></i>
+        </div>
+        <h2 class="text-3xl font-black text-slate-800 mb-2 uppercase tracking-tighter text-center">Giao dịch thành công</h2>
+        <div class="flex items-center gap-2 text-blue-600">
+            <div class="w-2 h-2 bg-blue-600 rounded-full animate-ping"></div>
+            <p class="font-bold text-sm uppercase tracking-widest">Đang cập nhật đơn hàng...</p>
+        </div>
+    </div>
+
+    <!-- Thẻ thanh toán chính -->
+    <div class="max-w-md w-full bg-white rounded-[2.5rem] shadow-2xl overflow-hidden cpay-card mx-4 border border-slate-200">
+
+        <!-- Header -->
+        <div class="p-6 bg-slate-50 border-b flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 gradient-blue rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg">
+                    <i class="bi bi-qr-code-scan"></i>
+                </div>
+                <div>
+                    <span class="font-black text-blue-900 text-lg block leading-none">VietQR</span>
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Chuyển khoản an toàn</span>
+                </div>
+            </div>
+            <div class="text-right">
+                <span class="bg-blue-100 text-blue-600 text-[10px] font-bold px-2 py-1 rounded-full border border-blue-200 uppercase">
+                    SeaHotel Pay
+                </span>
+            </div>
+        </div>
+
+        <div class="p-8 text-center">
+            <p class="text-slate-400 text-[10px] font-bold mb-1 uppercase tracking-[0.2em]">Số tiền giao dịch</p>
+            <p class="text-4xl font-black text-slate-900 mb-6 tracking-tighter">
+                @Model.SoTien.ToString("N0") <span class="text-lg font-normal">đ</span>
+            </p>
+
+            <!-- MÃ QR THẬT (VietQR) -->
+            <div class="bg-white inline-block p-4 rounded-3xl shadow-inner mb-6 border-2 border-blue-50 relative group">
+                <img src="@vietQrUrl"
+                     alt="Mã QR VietQR" class="w-56 h-56 rounded-xl shadow-sm" />
+                <div class="absolute inset-0 flex flex-col items-center justify-center bg-white/80 opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl pointer-events-none">
+                    <i class="bi bi-phone text-blue-600 text-3xl mb-2"></i>
+                    <p class="text-[10px] font-bold text-blue-700 px-4">Dùng App Ngân hàng quét mã</p>
+                </div>
+            </div>
+
+            <!-- Thông tin tài khoản -->
+            <div class="space-y-2 mb-8 text-left text-xs bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <div class="flex justify-between">
+                    <span class="text-slate-400 font-medium">Chủ tài khoản:</span>
+                    <span class="font-bold text-slate-700">@chuTaiKhoan</span>
+                </div>
+                <div class="flex justify-between border-t border-slate-200 pt-2">
+                    <span class="text-slate-400 font-medium">Số tài khoản:</span>
+                    <span class="font-bold text-slate-700">@soTaiKhoan</span>
+                </div>
+                <div class="flex justify-between border-t border-slate-200 pt-2">
+                    <span class="text-slate-400 font-medium">Nội dung:</span>
+                    <span class="font-bold text-blue-800 text-right truncate ml-4">@Model.NoiDung</span>
+                </div>
+            </div>
+
+            <!-- Nút bấm giả lập -->
+            <div class="space-y-4">
+                <button onclick="confirmAndSpeakRoom()"
+                        class="w-full py-4 gradient-blue text-white font-black rounded-2xl transition-all transform hover:scale-[1.02] active:scale-95 shadow-xl shadow-blue-200 uppercase text-xs tracking-widest">
+                    <i class="bi bi-check2-circle me-2"></i> Xác nhận đã chuyển tiền
+                </button>
+
+                <a href="@Url.Action("KetQuaThanhToanCPay", "DatPhong", new { maDatId = Model.MaDatId, thanhCong = false })"
+                   class="block text-[10px] font-bold text-slate-300 hover:text-red-500 transition uppercase tracking-widest">
+                    Hủy bỏ và quay lại
+                </a>
+            </div>
+        </div>
+
+        <div class="p-4 bg-slate-50 border-t text-[8px] text-center text-slate-400 font-bold uppercase tracking-widest">
+            Tích hợp bởi CPay & NAPAS 247 &copy; 2025
+        </div>
+    </div>
+
+    <script>
+        function confirmAndSpeakRoom() {
+            // 1. Hiển thị UI thành công
+            document.getElementById('successOverlay').style.display = 'flex';
+
+            // 2. Lấy số tiền
+            const soTien = "@Model.SoTien.ToString("N0")";
+            const text = "Bạn đã thanh toán thành công số tiền " + soTien + " đồng qua ứng dụng ngân hàng. Cảm ơn bạn đã tin dùng SeaHotel.";
+
+            // 3. Đọc giọng nói và chuyển trang
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const speech = new SpeechSynthesisUtterance(text);
+                speech.lang = 'vi-VN';
+                speech.rate = 0.95;
+
+                speech.onend = function() {
+                    setTimeout(() => {
+                        window.location.href = "@Url.Action("KetQuaThanhToanCPay", "DatPhong", new { maDatId = Model.MaDatId, thanhCong = true })";
+                    }, 500);
+                };
+                window.speechSynthesis.speak(speech);
+            } else {
+                window.location.href = "@Url.Action("KetQuaThanhToanCPay", "DatPhong", new { maDatId = Model.MaDatId, thanhCong = true })";
+            }
+        }
+    </script>
+</body>
+</html>

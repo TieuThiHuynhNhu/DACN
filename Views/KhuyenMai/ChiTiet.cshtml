@@ -1,0 +1,177 @@
+﻿@model DACN.Models.KhuyenMai
+@{
+    ViewData["Title"] = Model.TenKhuyenMai + " - Chi tiết ưu đãi";
+
+    // Khởi tạo danh sách phòng áp dụng
+    var appliedRooms = Model.PhongKhuyenMais?.Select(pk => pk.Phong?.LoaiPhong).Where(name => name != null).ToList() ?? new List<string>();
+
+    // Xác định trạng thái
+    var now = DateTime.Now.Date;
+    string statusText, statusClass;
+
+    if (Model.NgayKetThuc.Date < now)
+    {
+        statusText = "Đã kết thúc";
+        statusClass = "bg-secondary";
+    }
+    else if (Model.NgayBatDau.Date > now)
+    {
+        statusText = "Sắp diễn ra";
+        statusClass = "bg-warning text-dark";
+    }
+    else
+    {
+        statusText = "Đang diễn ra";
+        statusClass = "bg-success";
+    }
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <article class="card shadow-lg border-0 promotion-detail-card">
+
+                <div class="card-header p-0 position-relative">
+                    @{
+                        var imagePath = string.IsNullOrEmpty(Model.HinhAnh) ? "/images/default_promo_lg.jpg" : Model.HinhAnh;
+                    }
+                    <img src="@Url.Content(imagePath)" alt="@Model.TenKhuyenMai" class="img-fluid detail-banner">
+
+                    <div class="overlay-content">
+                        <h1 class="display-5 fw-bolder text-white">@Model.TenKhuyenMai</h1>
+                        <span class="badge @statusClass badge-lg mt-2">
+                            <i class="bi bi-patch-check-fill me-1"></i> @statusText
+                        </span>
+                    </div>
+
+                    <div class="discount-label">
+                        <span class="percent-text">@Model.PhanTramGiam%</span>
+                        <span class="off-text">OFF</span>
+                    </div>
+                </div>
+
+                <div class="card-body p-5">
+
+                    <section class="mb-4 detail-info">
+                        <h3 class="text-info fw-bold mb-3">🔖 Chi tiết chương trình</h3>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <p class="mb-1 fw-semibold text-muted"><i class="bi bi-clock-fill me-2"></i>Ngày bắt đầu:</p>
+                                <p class="fw-bold fs-5">@Model.NgayBatDau.ToString("dd/MM/yyyy")</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-1 fw-semibold text-muted"><i class="bi bi-calendar-x-fill me-2"></i>Ngày kết thúc:</p>
+                                <p class="fw-bold fs-5 text-danger">@Model.NgayKetThuc.ToString("dd/MM/yyyy")</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <hr class="my-4">
+
+                    <section class="mb-5">
+                        <h3 class="text-info fw-bold mb-3">📝 Mô tả chi tiết</h3>
+                        <p class="lead">@Html.Raw(Model.MoTa)</p>
+                    </section>
+
+                    <hr class="my-4">
+
+                    <section class="mb-5">
+                        <h3 class="text-info fw-bold mb-3">🏠 Các loại phòng áp dụng</h3>
+                        @if (appliedRooms.Any())
+                        {
+                            <div class="d-flex flex-wrap gap-2">
+                                @foreach (var roomName in appliedRooms)
+                                {
+                                    <span class="badge bg-primary fs-6 py-2 px-3 shadow-sm">
+                                        <i class="bi bi-house-door-fill me-1"></i> @roomName
+                                    </span>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-muted fst-italic">Áp dụng cho tất cả các loại phòng.</p>
+                        }
+                    </section>
+
+                    <div class="d-flex justify-content-between flex-wrap gap-2 mt-4">
+                        <a href="/KhuyenMai/DanhSach" class="btn btn-outline-secondary btn-lg flex-fill">
+                            <i class="bi bi-arrow-left-circle-fill me-2"></i> Quay lại danh sách
+                        </a>
+                        @if (statusText == "Đang diễn ra")
+                        {
+                            <a href="/Phong/Index" class="btn btn-info btn-lg text-white fw-bold flex-fill">
+                                Áp dụng và Đặt phòng ngay <i class="bi bi-chevron-right ms-2"></i>
+                            </a>
+                        }
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-info {
+        color: #0077b6 !important;
+    }
+
+    .promotion-detail-card {
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .detail-banner {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+    }
+
+    .card-header {
+        min-height: 200px; /* Đảm bảo chiều cao tối thiểu */
+    }
+
+    /* Lớp phủ cho Tiêu đề */
+    .overlay-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+        color: white;
+    }
+
+    .badge-lg {
+        padding: 8px 15px;
+        font-size: 1rem;
+    }
+
+    /* Nhãn giảm giá nổi bật */
+    .discount-label {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: #ff3366; /* Màu nổi bật */
+        color: white;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .percent-text {
+        font-size: 2.2rem;
+        font-weight: 900;
+    }
+
+    .off-text {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+</style>

@@ -1,0 +1,201 @@
+﻿@model List<DACN.Models.DichVu>
+
+<div class="container py-5">
+    <h2 class="mb-5 text-center fw-bold text-dark">
+        <i class="bi bi-gear-wide-connected me-2 text-primary"></i> KHÁM PHÁ DỊCH VỤ - SEAHOTEL
+    </h2>
+
+    @* Thông báo *@
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            @* --- Card Dịch vụ Hiện đại --- *@
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100 shadow-lg border-0 rounded-4 service-card-hover">
+
+                    @* Ảnh dịch vụ *@
+                    @if (!string.IsNullOrEmpty(item.HinhAnh))
+                    {
+                        <img src="@item.HinhAnh" class="card-img-top rounded-top-4" alt="Ảnh dịch vụ" style="height:220px; object-fit:cover;" />
+                    }
+                    else
+                    {
+                        <div class="card-img-top d-flex align-items-center justify-content-center bg-light text-muted rounded-top-4" style="height:220px;">
+                            <i class="bi bi-image-fill me-2"></i> Chưa có ảnh
+                        </div>
+                    }
+
+                    <div class="card-body d-flex flex-column p-4">
+                        <h5 class="card-title fw-bold text-primary mb-2">
+                            @item.TenDichVu
+                        </h5>
+
+                        <p class="text-muted mb-3 flex-grow-1" style="font-size: 0.95rem;">
+                            @(item.MoTa.Length > 100 ? item.MoTa.Substring(0, 100) + "..." : item.MoTa)
+                        </p>
+
+                        <p class="fs-5 fw-bolder text-danger mb-3">
+                            Giá: @item.GiaDichVu?.ToString("N0") VNĐ
+                        </p>
+
+                        @* Vùng nút hành động *@
+                        <div class="d-flex flex-column gap-2 mt-auto">
+                            @if (User.IsInRole("KhachHang"))
+                            {
+                                <button class="btn btn-warning fw-bold w-100 rounded-pill shadow-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalDatLich_@item.MaDichVu">
+                                    <i class="bi bi-calendar-plus me-1"></i> Đặt lịch ngay
+                                </button>
+                            }
+                            else
+                            {
+                                <small class="text-muted text-center p-2 border rounded-pill">
+                                    * Vui lòng <a asp-controller="Account" asp-action="Login" class="text-primary fw-bold">đăng nhập</a> để đặt dịch vụ
+                                </small>
+                            }
+
+                            <a asp-action="ChiTiet" asp-controller="DichVu" asp-route-id="@item.MaDichVu"
+                               class="btn btn-outline-primary w-100 rounded-pill">
+                                <i class="bi bi-info-circle me-1"></i> Xem chi tiết
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* --- Modal Đặt lịch (Hiển thị form gọn gàng) --- *@
+            @if (User.IsInRole("KhachHang"))
+            {
+                <div class="modal fade" id="modalDatLich_@item.MaDichVu" tabindex="-1" aria-labelledby="modalLabel_@item.MaDichVu" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content rounded-4 shadow-lg">
+
+                            <form asp-action="Dat" asp-controller="DichVu" method="post">
+                                <input type="hidden" name="MaDichVu" value="@item.MaDichVu" />
+
+                                <div class="modal-header bg-primary text-white rounded-top-4">
+                                    <h5 class="modal-title fw-bold" id="modalLabel_@item.MaDichVu">
+                                        📅 Đặt lịch: @item.TenDichVu
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body p-4">
+                                    <p class="mb-3">Giá dịch vụ: <span class="fw-bold text-danger">@item.GiaDichVu?.ToString("N0") VNĐ</span></p>
+
+                                    <div class="mb-3">
+                                        <label for="NgaySuDung_@item.MaDichVu" class="form-label fw-bold">Ngày sử dụng</label>
+                                        <input type="date" name="NgaySuDung" id="NgaySuDung_@item.MaDichVu" class="form-control rounded-3"
+                                               value="@DateTime.Today.ToString("yyyy-MM-dd")" min="@DateTime.Today.ToString("yyyy-MM-dd")" required />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="KhungGio_@item.MaDichVu" class="form-label fw-bold">Khung giờ</label>
+                                        <select name="KhungGio" id="KhungGio_@item.MaDichVu" class="form-select rounded-3" required>
+                                            <option value="08:00:00">08:00 - 09:00</option>
+                                            <option value="09:00:00">09:00 - 10:00</option>
+                                            <option value="10:00:00">10:00 - 11:00</option>
+                                            <option value="13:00:00">13:00 - 14:00</option>
+                                            <option value="14:00:00">14:00 - 15:00</option>
+                                            <option value="15:00:00">15:00 - 16:00</option>
+                                            <option value="16:00:00">16:00 - 17:00</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="SoLuong_@item.MaDichVu" class="form-label fw-bold">Số lượng</label>
+                                        <input type="number" name="SoLuong" id="SoLuong_@item.MaDichVu" class="form-control rounded-3" min="1" value="1" required />
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="GhiChu_@item.MaDichVu" class="form-label fw-bold">Ghi chú (nếu có)</label>
+                                        <textarea name="GhiChu" id="GhiChu_@item.MaDichVu" class="form-control rounded-3" rows="2"></textarea>
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer justify-content-between p-4 border-top-0">
+                                    <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">
+                                        Hủy
+                                    </button>
+                                    <button type="submit" class="btn btn-primary rounded-pill fw-bold" style="background-color: var(--bs-primary);">
+                                        Xác nhận đặt lịch
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<style>
+    /* Định nghĩa màu sắc thương hiệu */
+    :root {
+        --bs-primary: #0a9396; /* Xanh Navy hiện đại */
+        --bs-warning: #ffb703; /* Vàng sáng cho nút đặt lịch */
+        --bs-danger: #e63946; /* Đỏ tươi cho giá */
+    }
+
+    .text-primary {
+        color: var(--bs-primary) !important;
+    }
+
+    .text-danger {
+        color: var(--bs-danger) !important;
+    }
+
+    /* Hiệu ứng Card hiện đại */
+    .service-card-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #dee2e6 !important;
+    }
+
+        .service-card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+        }
+
+    /* Thiết kế nút */
+    .btn-warning {
+        background-color: var(--bs-warning) !important;
+        color: #333 !important;
+    }
+
+    .btn-primary {
+        background-color: var(--bs-primary) !important;
+        border-color: var(--bs-primary) !important;
+    }
+
+    .btn-outline-primary {
+        color: var(--bs-primary) !important;
+        border-color: var(--bs-primary) !important;
+    }
+
+    /* Cải thiện Modal */
+    .modal-header.bg-primary {
+        background-color: var(--bs-primary) !important;
+    }
+
+    .form-control, .form-select {
+        border-radius: 0.5rem;
+    }
+</style>

@@ -1,0 +1,204 @@
+﻿@model List<DACN.Models.ChamCong>
+@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = "Lịch sử chấm công (Admin)";
+    var nhanViens = ViewBag.NhanViens as List<DACN.Models.NhanVien>;
+    var query = Context.Request.Query;
+
+    // Lấy giá trị tìm kiếm
+    DateTime? tuNgay = !string.IsNullOrEmpty(query["tuNgay"]) ? DateTime.Parse(query["tuNgay"]) : (DateTime?)null;
+    DateTime? denNgay = !string.IsNullOrEmpty(query["denNgay"]) ? DateTime.Parse(query["denNgay"]) : (DateTime?)null;
+    int? maNhanVien = !string.IsNullOrEmpty(query["maNhanVien"]) ? int.Parse(query["maNhanVien"]) : (int?)null;
+
+    // Tổng số lượng kết quả
+    var totalCount = Model?.Count() ?? 0;
+}
+
+<div class="container py-5">
+
+    <h3 class="text-center fw-bolder mb-5 text-uppercase" style="color: #007bff;">
+        <i class="fa-solid fa-clock-rotate-left me-3 text-warning"></i>
+        BẢNG QUẢN LÝ LỊCH SỬ CHẤM CÔNG
+    </h3>
+
+    <div class="card shadow-lg mb-5 border-0 rounded-3">
+        <div class="card-body p-4">
+            <h5 class="card-title mb-4 fw-bold" style="color: #007bff;">
+                <i class="fa-solid fa-filter me-2"></i> Tùy chọn Lọc & Báo Cáo
+            </h5>
+
+            <form method="get" class="row g-3 align-items-end">
+
+                <div class="col-md-3 col-sm-6">
+                    <label class="form-label fw-bold"><i class="fa-solid fa-calendar-alt me-1"></i> Từ Ngày</label>
+                    <input type="date" name="tuNgay" class="form-control rounded-pill" value="@(tuNgay?.ToString("yyyy-MM-dd") ?? "")" />
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <label class="form-label fw-bold"><i class="fa-solid fa-calendar-alt me-1"></i> Đến Ngày</label>
+                    <input type="date" name="denNgay" class="form-control rounded-pill" value="@(denNgay?.ToString("yyyy-MM-dd") ?? "")" />
+                </div>
+
+                <div class="col-md-3 col-sm-12">
+                    <label class="form-label fw-bold"><i class="fa-solid fa-user me-1"></i> Nhân viên</label>
+                    <select name="maNhanVien" class="form-select rounded-pill">
+                        <option value="">-- Tất cả --</option>
+                        @foreach (var nv in nhanViens)
+                        {
+                            var isSelected = maNhanVien == nv.MaNhanVien;
+                            <option value="@nv.MaNhanVien" selected="@(isSelected ? "selected" : null)">
+                                @nv.HoTen
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-3 col-sm-12">
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary w-50 rounded-pill shadow-sm">
+                            <i class="fa-solid fa-search"></i> Lọc
+                        </button>
+                        <a asp-action="LichSuAdmin" class="btn btn-secondary w-50 rounded-pill shadow-sm">
+                            <i class="fa-solid fa-redo-alt"></i> Reset
+                        </a>
+                    </div>
+                    <a asp-action="XuatPdfAdmin"
+                       asp-route-tuNgay="@(tuNgay?.ToString("yyyy-MM-dd") ?? "")"
+                       asp-route-denNgay="@(denNgay?.ToString("yyyy-MM-dd") ?? "")"
+                       asp-route-maNhanVien="@(maNhanVien?.ToString() ?? "")"
+                       class="btn btn-success w-100 rounded-pill shadow-sm mt-2">
+                        <i class="fa-solid fa-file-pdf me-1"></i> Xuất Báo Cáo PDF
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="alert alert-info shadow-sm d-flex justify-content-between align-items-center mb-4 p-3 rounded-3" style="background-color: #e6f7ff; border-left: 5px solid #007bff;">
+        <h6 class="mb-0 fw-bold text-dark">
+            <i class="fa-solid fa-list-ol me-2"></i> Tổng Số Lần Chấm Công: <span class="badge bg-primary fs-6">@totalCount</span>
+        </h6>
+    </div>
+
+    <div class="table-responsive shadow-lg rounded-3">
+        <table class="table table-hover table-striped align-middle mb-0 custom-admin-table">
+            <thead class="bg-primary text-white text-center">
+                <tr>
+                    <th scope="col" style="width: 20%;"><i class="fa-solid fa-user-tie me-1"></i> Nhân viên</th>
+                    <th scope="col" style="width: 30%;"><i class="fa-solid fa-clock-in me-1"></i> Ngày giờ vào ca</th>
+                    <th scope="col" style="width: 30%;"><i class="fa-solid fa-clock-out me-1"></i> Ngày giờ kết ca</th>
+                    <th scope="col" style="width: 20%;"><i class="fa-solid fa-comment-dots me-1"></i> Ghi chú</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr class="text-center align-middle">
+                            <td class="text-start fw-bold text-primary">@item.NhanVien?.HoTen</td>
+                            <td>@item.NgayGioVaoCa.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@(item.NgayGioKetCa?.ToString("dd/MM/yyyy HH:mm") ?? "<span class='badge bg-danger'>Chưa kết ca</span>")</td>
+                            <td>@item.GhiChu</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">
+                            <i class="fa-solid fa-exclamation-triangle me-2 fs-4"></i>
+                            <p class="mb-0 fs-5 mt-2">Không có dữ liệu chấm công nào phù hợp với điều kiện lọc.</p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    /* CSS TÙY CHỈNH CHO GIAO DIỆN HIỆN ĐẠI */
+    :root {
+        --primary-color: #007bff; /* Xanh dương đậm */
+        --success-color: #28a745; /* Xanh lá */
+        --secondary-color: #6c757d; /* Xám */
+        --light-blue: #f8f9fa; /* Nền nhẹ */
+    }
+
+    body {
+        background-color: #f8f9fa;
+    }
+
+    /* Tiêu đề */
+    h3.fw-bolder {
+        color: var(--primary-color) !important;
+    }
+
+    /* Card */
+    .card.shadow-lg {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    /* Form controls */
+    .form-control, .form-select {
+        border-radius: 0.5rem; /* Bo tròn vừa phải */
+    }
+
+    /* Buttons */
+    .btn {
+        font-weight: 600;
+        border-radius: 0.5rem;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .btn-success {
+        background-color: var(--success-color);
+        border-color: var(--success-color);
+    }
+
+    /* Table */
+    .table-responsive.shadow-lg {
+        border-radius: 0.75rem;
+        overflow: hidden;
+        background-color: white;
+    }
+
+    .custom-admin-table thead th {
+        background-color: var(--primary-color) !important;
+        color: white;
+        font-weight: 700;
+        vertical-align: middle;
+        padding: 12px 10px;
+        border-bottom: none;
+    }
+
+    .custom-admin-table tbody tr:hover {
+        background-color: #e9f7ff; /* Hover màu xanh nhạt */
+    }
+
+    .custom-admin-table tbody td {
+        padding: 12px 10px;
+    }
+
+    /* Responsive adjustment */
+    media (max-width: 767px) {
+        .col-md-3.col-sm-12 > .d-flex.gap-2
+
+    {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .col-md-3.col-sm-12 > .d-flex.gap-2 button,
+    .col-md-3.col-sm-12 > .d-flex.gap-2 a {
+        width: 100% !important;
+    }
+
+    }
+</style>

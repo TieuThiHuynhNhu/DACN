@@ -1,0 +1,171 @@
+﻿@model DACN.Models.ViewModel.DichVuIndexViewModel
+@{
+    ViewData["Title"] = "Danh Sách Dịch Vụ";
+}
+
+<div class="container py-5">
+    
+
+    <!-- Thanh tìm kiếm hiện đại -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-7">
+            <form asp-action="Index" method="get">
+                <div class="input-group input-group-lg rounded-pill shadow-lg overflow-hidden border border-2" style="border-color: #0077b6 !important;">
+                    <input type="text" class="form-control border-0 ps-4"
+                           placeholder="Nhập tên dịch vụ bạn muốn tìm..."
+                           name="tuKhoa" value="@Model.TuKhoa" aria-label="Tìm kiếm dịch vụ">
+
+                    <button class="btn px-4 fw-semibold" type="submit"
+                            style="background-color: #0a9396; color: white; border-radius: 0 50px 50px 0 !important;">
+                        <i class="fas fa-search"></i> Tìm kiếm
+                    </button>
+
+                    @if (!string.IsNullOrEmpty(Model.TuKhoa))
+                    {
+                        <a asp-action="Index" class="btn btn-outline-danger px-3" title="Xóa tìm kiếm">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Danh sách dịch vụ -->
+    <div class="row g-5">
+        @if (!Model.DanhSachDichVus.Any())
+        {
+            <div class="col-12">
+                <div class="alert alert-info text-center py-4 rounded-3 shadow-sm" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i> Rất tiếc, không tìm thấy dịch vụ nào phù hợp với từ khóa **"@Model.TuKhoa"**.
+                </div>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model.DanhSachDichVus)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="card service-card h-100 rounded-3 overflow-hidden shadow-md">
+
+                        <!-- Hình ảnh -->
+                        @if (!string.IsNullOrEmpty(item.HinhAnh))
+                        {
+                            <div class="image-wrapper">
+                                <img src="@item.HinhAnh" class="card-img-top service-img" alt="Hình ảnh @item.TenDichVu" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="image-wrapper d-flex align-items-center justify-content-center bg-light text-muted">
+                                <i class="fas fa-camera-alt fa-2x"></i> <em>Chưa có ảnh</em>
+                            </div>
+                        }
+
+                        <!-- Nội dung Card -->
+                        <div class="card-body p-4 d-flex flex-column">
+                            <h4 class="fw-bold mb-2 service-title">@item.TenDichVu</h4>
+                            <p class="text-muted small mb-3 flex-grow-1 service-description">
+                                @(item.MoTa != null && item.MoTa.Length > 100 ? item.MoTa.Substring(0, 100) + "..." : item.MoTa)
+                            </p>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="fw-bolder fs-5" style="color:#d00000;">
+                                    @item.GiaDichVu?.ToString("N0") VNĐ
+                                </span>
+                                <a asp-action="ChiTiet" asp-controller="DichVu" asp-route-id="@item.MaDichVu"
+                                   class="btn btn-sm btn-outline-info rounded-pill fw-semibold">
+                                    Chi tiết <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+
+                            <!-- Nút Đặt lịch -->
+                            @if (User.IsInRole("KhachHang"))
+                            {
+                                <!-- Sử dụng cú pháp đã sửa lỗi để truyền maDichVu -->
+                                <a asp-action="Dat" asp-controller="DichVu" asp-route-maDichVu="@item.MaDichVu"
+                                   class="btn btn-lg btn-primary rounded-pill mt-2 action-button">
+                                    <i class="fas fa-calendar-check me-2"></i> Đặt lịch ngay
+                                </a>
+                            }
+                            else
+                            {
+                                <div class="text-center p-2 mt-2 border border-muted rounded-pill">
+                                    <small class="text-secondary fw-semibold">Vui lòng <a asp-controller="Account" asp-action="Login" class="text-decoration-none">đăng nhập</a> để đặt dịch vụ</small>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <!-- Phân trang -->
+    <div class="mt-5">
+        @* Đảm bảo truyền tham số tìm kiếm khi phân trang *@
+        @await Html.PartialAsync("_PhanTrang", Model.PhanTrang, new ViewDataDictionary(ViewData) { { "TuKhoa", Model.TuKhoa } })
+    </div>
+</div>
+
+<style>
+    /* Card Styles */
+    .service-card {
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+    .image-wrapper {
+        height: 250px; /* Chiều cao ảnh cố định */
+        overflow: hidden;
+        border-bottom: 4px solid #0a9396; /* Đường viền màu chủ đạo */
+    }
+
+    .service-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .service-card:hover .service-img {
+        transform: scale(1.05); /* Zoom nhẹ khi hover */
+    }
+
+    .service-title {
+        color: #0077b6; /* Màu tiêu đề chính */
+    }
+
+    .service-description {
+        color: #6c757d; /* Màu mô tả */
+    }
+
+    /* Button Styles */
+    .action-button {
+        background-color: #0a9396;
+        border-color: #0a9396;
+        transition: background-color 0.2s, transform 0.1s;
+    }
+
+        .action-button:hover {
+            background-color: #0077b6;
+            border-color: #0077b6;
+            transform: translateY(-1px);
+        }
+
+    .btn-outline-info {
+        color: #0a9396;
+        border-color: #0a9396;
+    }
+
+        .btn-outline-info:hover {
+            background-color: #0a9396;
+            color: white;
+        }
+</style>

@@ -1,0 +1,126 @@
+﻿@model DACN.Models.CuocTroChuyen
+
+@{
+    ViewData["Title"] = "Chat Chi Tiết";
+}
+
+<div class="container py-4">
+    <h3 class="text-center text-primary mb-3">💬 Chat với khách: @Model.TenKhachHang</h3>
+    <p class="text-center text-muted small">ID Cuộc trò chuyện: @Model.Id</p>
+    <hr />
+
+    <div id="chatMessages" class="border rounded p-3 mb-3 shadow-sm"
+         style="height: 450px; overflow-y: auto; background-color: #f9f9f9;">
+        @foreach (var msg in Model.TinNhans.OrderBy(t => t.ThoiGian))
+        {
+            var isStaff = msg.GuiBoiRole == "NhanVien";
+            <div class="d-flex mb-2 @(isStaff ? "justify-content-end" : "justify-content-start")">
+                <div class="rounded p-2 shadow-sm" style="max-width:70%; @(isStaff ? "background-color: #007bff; color: white;" : "background-color: #e9ecef; color: #333;")">
+                    <strong>@msg.GuiBoiName:</strong> @msg.NoiDung
+                    <div class="small mt-1 text-end @(isStaff ? "text-light" : "text-muted")">@msg.ThoiGian.ToLocalTime().ToString("HH:mm")</div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="input-group">
+        <input id="chatInput" type="text" class="form-control" placeholder="Nhập tin nhắn..." onkeypress="if(event.key === 'Enter') document.getElementById('chatSend').click()">
+        <button id="chatSend" class="btn btn-success">Gửi</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        const cuocTroChuyenId = @Model.Id;
+        const userName = "@User.Identity?.Name";
+        const userRole = "NhanVien";
+        const chatBox = document.getElementById("chatMessages");
+        const chatInput = document.getElementById("chatInput");
+        const chatSend = document.getElementById("chatSend");
+
+        // Cuộn xuống tin nhắn cuối cùng khi tải trang
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Hàm tạo tin nhắn UI
+        function createMessageBubble(senderRole, senderName, messageContent, time) {
+            const isStaff = senderRole === "NhanVien";
+            const wrapper = document.createElement("div");
+            wrapper.className = `d-flex mb-2 ${isStaff ? 'justify-content-end' : 'justify-content-start'}`;
+
+            const bubble = document.createElement("div");
+            bubble.className = "rounded p-2 shadow-sm";
+            bubble.style.maxWidth = '70%';
+
+            if (isStaff) {
+                bubble.style.backgroundColor = '#007bff';
+                bubble.style.color = 'white';
+                bubble.innerHTML = `
+                    <strong>${senderName}:</strong> ${messageContent}
+                    <div class="small mt-1 text-end text-light">${time}</div>
+                `;
+            } else {
+                bubble.style.backgroundColor = '#e9ecef';
+                bubble.style.color = '#333';
+                bubble.innerHTML = `
+                    <strong>${senderName}:</strong> ${messageContent}
+                    <div class="small mt-1 text-end text-muted">${time}</div>
+                `;
+            }
+
+            wrapper.appendChild(bubble);
+            return wrapper;
+        }
+
+
+        const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        // Lắng nghe tin nhắn mới
+        connection.on("ReceiveMessage", (conversationId, senderRole, senderName, message, time) => {
+            if (conversationId == cuocTroChuyenId) {
+                const msgDiv = createMessageBubble(senderRole, senderName, message, time);
+                chatBox.appendChild(msgDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        });
+
+        connection.start().catch(err => console.error("SignalR Connection Error: ", err));
+
+        // Xử lý gửi tin nhắn
+        chatSend.addEventListener("click", async () => {
+            const noiDung = chatInput.value.trim();
+            if (!noiDung) return;
+
+            // Gửi tin nhắn qua SignalR Hub (Hub sẽ đảm nhận lưu DB và broadcast)
+            try {
+                // Chúng ta sẽ gọi Invoke để gửi tin nhắn đến Hub, Hub sẽ lưu vào DB và gọi Clients.All.SendAsync("ReceiveMessage", ...)
+                await connection.invoke("SendMessage", cuocTroChuyenId, userRole, userName, noiDung);
+
+                chatInput.value = "";
+                // Tin nhắn sẽ tự động được thêm vào UI thông qua event ReceiveMessage
+            } catch (err) {
+                console.error("Gửi tin nhắn thất bại:", err);
+                const errorDiv = document.createElement("div");
+                errorDiv.className = "text-center text-danger small mt-2";
+                errorDiv.textContent = "Gửi tin nhắn thất bại. Vui lòng kiểm tra kết nối.";
+                chatBox.appendChild(errorDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        });
+    </script>
+}
+<style>
+    /* Styling cho thanh cuộn */
+    #chatMessages::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #chatMessages::-webkit-scrollbar-thumb {
+        background-color: #bbb;
+        border-radius: 3px;
+    }
+
+    #chatMessages::-webkit-scrollbar-track {
+        background-color: #f9f9f9;
+    }
+</style>

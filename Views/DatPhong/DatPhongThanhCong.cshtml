@@ -1,0 +1,61 @@
+﻿@model DACN.Models.DatPhong
+@{
+    ViewData["Title"] = "Đặt Phòng Thành Công";
+    var khach = ViewBag.KhachHang as DACN.Models.KhachHang;
+    var phong = ViewBag.Phong as DACN.Models.Phong;
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-success">
+                <div class="card-header text-white text-center" style="background-color: #0a9396;">
+                    <h2 class="mb-0">🎉 @ViewData["Title"] 🎉</h2>
+                </div>
+                <div class="card-body">
+                    <p class="lead text-center">Cảm ơn bạn, việc đặt phòng của bạn đã được ghi nhận.</p>
+                    <div class="alert alert-warning text-center">
+                        <h5>⚠️ Vui lòng lưu ý:</h5>
+                        <p>Bạn đã chọn hình thức **Thanh toán sau**. Vui lòng thanh toán tổng số tiền dưới đây tại quầy lễ tân khi làm thủ tục trả phòng.</p>
+                    </div>
+
+                    <h4 class="mt-4 border-bottom pb-2">Thông Tin Đặt Phòng</h4>
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>Mã đặt phòng:</th>
+                            <td>#@Model.MaDatPhong</td>
+                        </tr>
+                        <tr>
+                            <th>Khách hàng:</th>
+                            <td>@(khach?.HoTen ?? "N/A")</td>
+                        </tr>
+                        <tr>
+                            <th>Phòng đã đặt:</th>
+                            <td>@(phong?.LoaiPhong ?? "N/A")</td>
+                        </tr>
+                        <tr>
+                            <th>Ngày nhận phòng:</th>
+                            <td>@Model.NgayNhan?.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                        <tr>
+                            <th>Ngày trả phòng:</th>
+                            <td>@Model.NgayTra?.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                        <tr>
+                            <th>Hình thức thanh toán:</th>
+                            <td class="text-danger fw-bold">@Model.HinhThucThanhToan</td>
+                        </tr>
+                    </table>
+
+                    <div class="text-center mt-4 p-3 bg-light rounded">
+                        <h4 class="text-primary">Tổng Tiền Cần Thanh Toán</h4>
+                        <h1 class="text-danger">@Model.TongTien.ToString("N0") VND</h1>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-controller="Phong" asp-action="Index" class="btn btn-primary">Tiếp tục khám phá</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

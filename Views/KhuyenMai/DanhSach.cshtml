@@ -1,0 +1,92 @@
+﻿@model IEnumerable<DACN.Models.KhuyenMai>
+@{
+    ViewData["Title"] = "Ưu đãi và Khuyến mãi đặc biệt";
+}
+
+<div class="container py-5">
+   
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-warning text-center" role="alert">
+            Hiện tại không có chương trình khuyến mãi nào đang diễn ra.
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var km in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0 promotion-card">
+                        @{
+                            var imagePath = string.IsNullOrEmpty(km.HinhAnh) ? "/images/default_promo.jpg" : km.HinhAnh;
+                        }
+                        <div class="card-img-top-wrapper">
+                            <img src="@Url.Content(imagePath)" class="card-img-top" alt="@km.TenKhuyenMai">
+                            <span class="discount-badge">Giảm **@km.PhanTramGiam%**</span>
+                        </div>
+
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold text-dark">@km.TenKhuyenMai</h5>
+                            <p class="card-text text-muted mb-2 small">
+                                <i class="bi bi-calendar-check me-1"></i> Áp dụng: @km.NgayBatDau.ToString("dd/MM") - @km.NgayKetThuc.ToString("dd/MM/yyyy")
+                            </p>
+
+                            <p class="card-text description-truncate">
+                                @(km.MoTa.Length > 100 ? km.MoTa.Substring(0, 100) + "..." : km.MoTa)
+                            </p>
+
+                            <div class="mt-auto pt-3">
+                                <a asp-action="ChiTiet" asp-route-id="@km.MaKhuyenMai" class="btn btn-outline-info w-100 mb-2">
+                                    Xem chi tiết & Điều kiện
+                                </a>
+                                <a href="/Phong/Index" class="btn btn-info w-100 text-white fw-bold">
+                                    Đặt phòng ngay <i class="bi bi-arrow-right-circle-fill ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .promotion-card {
+        transition: transform 0.3s, box-shadow 0.3s;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+        .promotion-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+    .card-img-top-wrapper {
+        position: relative;
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .discount-badge {
+        position: absolute;
+        top: 15px;
+        left: 0;
+        background-color: #ff3366; /* Màu nổi bật */
+        color: white;
+        padding: 5px 15px;
+        border-radius: 0 8px 8px 0;
+        font-weight: bold;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .text-info {
+        color: #0077b6 !important;
+    }
+</style>

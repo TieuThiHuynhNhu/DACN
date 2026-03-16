@@ -1,0 +1,110 @@
+﻿@model List<DACN.Models.DatPhong>
+@{
+    ViewData["Title"] = "Quản lý Đặt phòng (Đơn hiện tại)";
+}
+
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success mt-3 shadow">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger mt-3 shadow">@TempData["Error"]</div>
+}
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-info text-center mt-5 p-4 rounded-3 shadow">
+        <i class="fa-solid fa-hotel fa-2x mb-3"></i>
+        <p class="lead mb-0">Bạn chưa có đơn đặt phòng nào đang chờ xử lý.</p>
+        <a asp-controller="Phong" asp-action="Index" class="btn btn-primary mt-3">Đặt phòng ngay</a>
+    </div>
+}
+else
+{
+    <div class="row row-cols-1 g-4">
+        @foreach (var item in Model.OrderByDescending(d => d.NgayDat))
+        {
+            var thoiGianConLai = item.HanHuyPhong.HasValue ? item.HanHuyPhong.Value - DateTime.Now : TimeSpan.MinValue;
+
+            // ⭐ DÒNG ĐÃ SỬA: Bao gồm trạng thái "DaDat" VÀ "ChoThanhToan" ⭐
+            var coTheHuy = (item.TrangThai == "ChoThanhToan" || item.TrangThai == "DaDat") && thoiGianConLai.TotalSeconds > 0;
+
+            var colorBorder = coTheHuy ? "#ffb703" : item.TrangThai == "DaHuy" ? "#d00000" : "#0077b6";
+            var iconStatus = coTheHuy ? "fa-solid fa-hourglass-half" : item.TrangThai == "DaHuy" ? "fa-solid fa-ban" : "fa-solid fa-check-circle";
+
+            <div class="col">
+                <div class="card shadow-lg border-0 h-100" style="border-left: 5px solid @colorBorder; border-radius: 12px;">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+
+                            <div class="col-md-6 col-lg-7 border-end">
+                                <h5 class="card-title fw-bold mb-1" style="color: @colorBorder;">
+                                    <i class="@iconStatus me-2"></i> Đơn #@item.MaDatPhong - @(item.Phong?.LoaiPhong ?? "Phòng (N/A)")
+                                </h5>
+                                <p class="text-muted small mb-3">Ngày đặt: @item.NgayDat.ToString("dd/MM/yyyy HH:mm")</p>
+
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <div class="fw-bold">Nhận phòng:</div>
+                                        <span class="text-success">@item.NgayNhan?.ToString("dd/MM/yyyy")</span>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="fw-bold">Trả phòng:</div>
+                                        <span class="text-primary">@item.NgayTra?.ToString("dd/MM/yyyy")</span>
+                                    </div>
+                                </div>
+
+                                <h4 class="mt-2" style="color:#d00000;">
+                                    Tổng tiền: @item.TongTien.ToString("N0") VNĐ
+                                </h4>
+                            </div>
+
+                            <div class="col-md-6 col-lg-5 ps-md-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="fw-bold me-3">Trạng thái:</span>
+                                    <span class="badge rounded-pill p-2 text-uppercase @(item.TrangThai == "DaDat" ? "bg-success" : item.TrangThai == "DaHuy" ? "bg-danger" : "bg-warning text-dark")">@item.TrangThai</span>
+                                </div>
+
+                                <div class="mb-3 p-2 rounded" style="background-color: #f8f9fa;">
+                                    <div class="fw-bold text-dark">Hạn Hủy Miễn Phí:</div>
+                                    @if (item.HanHuyPhong.HasValue && thoiGianConLai.TotalSeconds > 0)
+                                    {
+                                        // ⭐ HIỂN THỊ THỜI GIAN CÒN LẠI ĐỂ HỦY (Rất quan trọng) ⭐
+                                        <span class="text-danger fw-bold">Còn @thoiGianConLai.Hours giờ @thoiGianConLai.Minutes phút</span>
+                                        <p class="small text-muted mb-0">(@item.HanHuyPhong.Value.ToString("dd/MM/yyyy HH:mm"))</p>
+                                    }
+                                    else if (item.TrangThai == "DaHuy")
+                                    {
+                                        <span class="text-secondary">Đơn đã bị hủy.</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-danger">Đã hết hạn hủy miễn phí.</span>
+                                    }
+                                </div>
+
+                                @if (coTheHuy)
+                                {
+                                    <form asp-action="HuyDatPhong" method="post" onsubmit="return confirm('⚠️ BẠN CÓ CHẮC MUỐN HỦY? Việc hủy sẽ không thể hoàn tác.');">
+                                        <input type="hidden" name="maDatPhong" value="@item.MaDatPhong" />
+                                        <button type="submit" class="btn btn-danger w-100 fw-bold mt-2 shadow-sm">
+                                            <i class="fa-solid fa-times-circle"></i> HỦY ĐẶT PHÒNG
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-outline-secondary w-100 mt-2" disabled>
+                                        <i class="fa-solid fa-ban"></i> Không thể hủy
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,220 @@
+﻿@{
+    ViewData["Title"] = "Hộp Chat Khách Hàng";
+    Layout = "_Layout";
+}
+
+<style>
+    /* Styling cho cửa sổ chat nổi */
+    #chatPopup {
+        position: fixed;
+        bottom: 80px; /* Vị trí trên nút chat */
+        right: 20px;
+        width: 350px;
+        height: 450px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        display: none; /* Mặc định ẩn */
+        flex-direction: column;
+        z-index: 1000;
+        overflow: hidden;
+    }
+
+    #chatHeader {
+        background-color: #007bff; /* primary color */
+        color: white;
+        padding: 10px 15px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    #chatBody {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 10px;
+        background-color: #f7f7f7;
+    }
+
+    #chatFooter {
+        padding: 10px;
+        border-top: 1px solid #eee;
+    }
+
+    .chat-bubble {
+        max-width: 80%;
+        padding: 8px 12px;
+        border-radius: 18px;
+        margin-bottom: 8px;
+        word-wrap: break-word;
+    }
+
+    .bubble-customer {
+        background-color: #007bff;
+        color: white;
+        margin-left: auto;
+    }
+
+    .bubble-staff {
+        background-color: #e2e6ea;
+        color: #333;
+        margin-right: auto;
+    }
+</style>
+
+<div id="chatPopup">
+    <div id="chatHeader">💬 Chat với nhân viên</div>
+    <div id="chatBody">
+        <div class="text-center text-muted p-4">Đang kết nối...</div>
+    </div>
+    <div id="chatFooter">
+        <div class="input-group">
+            <input id="chatInput" type="text" class="form-control" placeholder="Nhập tin...">
+            <button id="chatSend" class="btn btn-primary">Gửi</button>
+        </div>
+    </div>
+</div>
+
+<button id="chatButton" class="btn btn-primary btn-lg"
+        style="position:fixed; bottom:20px; right:20px; border-radius:50%; width:60px; height:60px; font-size: 1.5rem; line-height: 1;">
+    💬
+</button>
+
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        const userName = "@(User.Identity?.Name ?? "Khách")";
+        const userRole = "KhachHang";
+        let currentConversationId = null;
+        const chatPopup = document.getElementById("chatPopup");
+        const chatButton = document.getElementById("chatButton");
+        const chatBody = document.getElementById("chatBody");
+        const chatInput = document.getElementById("chatInput");
+        const chatSend = document.getElementById("chatSend");
+
+        chatButton.addEventListener('click', () => {
+            if (chatPopup.style.display === 'none' || chatPopup.style.display === '') {
+                chatPopup.style.display = 'flex';
+                // Load history only on first open
+                if (!currentConversationId) {
+                    loadOrCreateConversation();
+                }
+            } else {
+                chatPopup.style.display = 'none';
+            }
+        });
+
+        // Handle Enter keypress
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                chatSend.click();
+            }
+        });
+
+
+        // Hàm tạo tin nhắn UI
+        function createMessageBubble(senderName, messageContent, time, isCurrentUser) {
+            const wrapper = document.createElement("div");
+            wrapper.className = `d-flex mb-2 ${isCurrentUser ? 'justify-content-end' : 'justify-content-start'}`;
+
+            const bubble = document.createElement("div");
+            bubble.className = `chat-bubble shadow-sm ${isCurrentUser ? 'bubble-customer' : 'bubble-staff'}`;
+
+            bubble.innerHTML = `
+                <div style="font-size:0.75rem; opacity: 0.8;">${senderName} (${time})</div>
+                <div>${messageContent}</div>
+            `;
+
+            wrapper.appendChild(bubble);
+            return wrapper;
+        }
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chatHub")
+            .build();
+
+        connection.on("ReceiveMessage", (conversationId, senderRole, senderName, message, time) => {
+            // Chỉ hiển thị tin nhắn nếu nó thuộc conversation đang mở
+            if (conversationId == currentConversationId) {
+                const isCurrentUser = senderName === userName;
+                const msgDiv = createMessageBubble(senderName, message, time, isCurrentUser);
+                chatBody.appendChild(msgDiv);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+        });
+
+        connection.start().catch(err => console.error("SignalR Connection Error: ", err));
+
+        // Logic tải conversation hiện tại hoặc tạo mới
+        async function loadOrCreateConversation() {
+            chatBody.innerHTML = '<div class="text-center text-muted p-4">Đang tải lịch sử...</div>';
+
+            // Endpoint này nên trả về ConversationId và lịch sử chat nếu có
+            const res = await fetch('/Chat/GetOrCreateConversation');
+            const data = await res.json();
+
+            chatBody.innerHTML = ''; // Clear loading message
+
+            if (data.success && data.conversationId) {
+                currentConversationId = data.conversationId;
+
+                // Tải lịch sử tin nhắn
+                const msgRes = await fetch(`/Chat/GetMessages?conversationId=${currentConversationId}`);
+                const msgs = await msgRes.json();
+
+                if(msgs.length === 0){
+                    chatBody.innerHTML = '<div class="text-center text-muted p-4">Chào bạn! Chúng tôi sẵn sàng hỗ trợ.</div>';
+                } else {
+                    msgs.forEach(m => {
+                        const isCurrentUser = m.guiBoiName === userName;
+                        const msgDiv = createMessageBubble(m.guiBoiName, m.noiDung, m.thoiGian, isCurrentUser);
+                        chatBody.appendChild(msgDiv);
+                    });
+                }
+                chatBody.scrollTop = chatBody.scrollHeight;
+            } else {
+                // Nếu không có conversationId, nó sẽ được tạo khi gửi tin nhắn đầu tiên
+                chatBody.innerHTML = '<div class="text-center text-muted p-4">Chào bạn! Hãy gửi tin nhắn đầu tiên của bạn.</div>';
+                console.error("Could not load or create conversation initially.");
+            }
+        }
+
+
+        chatSend.addEventListener("click", async () => {
+            const msg = chatInput.value.trim();
+            if (!msg) return;
+
+            try {
+                if (!currentConversationId) {
+                    // Nếu chưa có ID, gửi tin nhắn đầu tiên, Controller sẽ tạo ConversationId và trả về
+                    const res = await fetch('/Chat/CreateAndSendMessage', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: `sender=${encodeURIComponent(userName)}&role=${userRole}&message=${encodeURIComponent(msg)}`
+                    });
+
+                    const data = await res.json();
+                    if (data.success && data.conversationId) {
+                        currentConversationId = data.conversationId;
+                        // Sau khi có ID, broadcast qua SignalR
+                        await connection.invoke("SendMessage", currentConversationId, userRole, userName, msg);
+                        chatInput.value = "";
+                    } else {
+                         throw new Error(data.message || "Failed to create conversation and send message.");
+                    }
+                } else {
+                    // Nếu đã có ID, chỉ cần broadcast
+                    await connection.invoke("SendMessage", currentConversationId, userRole, userName, msg);
+                    chatInput.value = "";
+                }
+            } catch (err) {
+                console.error("Error sending message:", err);
+                // Sử dụng div để hiển thị lỗi thay vì alert
+                const errorDiv = document.createElement("div");
+                errorDiv.className = "text-center text-danger small mt-2";
+                errorDiv.textContent = "Gửi tin nhắn thất bại.";
+                chatBody.appendChild(errorDiv);
+            }
+        });
+    </script>
+}

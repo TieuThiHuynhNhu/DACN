@@ -1,0 +1,56 @@
+﻿@model IEnumerable<DACN.Models.BaoCao>
+
+<h2 class="mb-4 text-center" style="color:#005f73;">Danh sách Báo Cáo - SeaHotel</h2>
+
+<div class="mb-3 text-end">
+    <a class="btn" asp-action="TaoBaoCao" style="background-color:#ffb703; color:#000; font-weight:bold;">
+        + Tạo báo cáo mới
+    </a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover shadow-sm">
+        <thead style="background-color:#0077b6; color:white;">
+            <tr>
+                <th>Mã</th>
+                <th>Loại báo cáo</th>
+                <th>Phạm vi</th>
+                <th>Ngày tạo</th>
+                <th>Người tạo</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MaBaoCao</td>
+                    <td style="color:#0a9396;">@item.LoaiBaoCao</td>
+                    <td>@item.PhamViThoiGian</td>
+                    <td>@item.NgayTao.ToString("dd/MM/yyyy")</td>
+                    <td>@item.NguoiTao</td>
+                    <td>@item.TrangThai</td>
+                    <td>
+                        <a asp-action="XuatPDF" asp-route-id="@item.MaBaoCao"
+                           class="btn btn-sm" style="background-color:#d00000; color:white;">
+                            <i class="bi bi-file-earmark-pdf"></i> Xuất PDF
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    /* Hover cho các dòng bảng */
+    table.table tbody tr:hover {
+        background-color: #e0f7fa;
+    }
+
+    /* Hover cho nút */
+    .btn:hover {
+        opacity: 0.9;
+    }
+</style>

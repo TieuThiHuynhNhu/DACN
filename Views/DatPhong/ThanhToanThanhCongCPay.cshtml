@@ -1,0 +1,110 @@
+﻿@model DACN.Models.DatPhong
+@{
+    ViewData["Title"] = "Thanh Toán CPay Thành Công";
+    var khach = ViewBag.KhachHang as DACN.Models.KhachHang;
+    var phong = ViewBag.Phong as DACN.Models.Phong;
+}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-7">
+            <div class="card shadow-2xl border-0 rounded-4 overflow-hidden">
+                @* Header với màu xanh Navy đặc trưng của CPay *@
+                <div class="card-header text-white text-center py-4" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
+                    <div class="mb-2">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm" style="width: 60px; height: 60px;">
+                            <i class="bi bi-shield-check text-success fs-1"></i>
+                        </div>
+                    </div>
+                    <h2 class="fw-bold mb-0">THANH TOÁN THÀNH CÔNG</h2>
+                    <p class="text-white-50 small mb-0">Giao dịch qua ví điện tử CPay đã được xác nhận</p>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <div class="text-center mb-4">
+                        <p class="lead">Cảm ơn <strong>@(khach?.HoTen ?? "Quý khách")</strong>!</p>
+                        <p class="text-muted">Đơn đặt phòng của bạn đã được hệ thống SeaHotel tự động chuyển sang trạng thái <strong>Đã xác nhận</strong>.</p>
+                    </div>
+
+                    @* Thông báo trạng thái đặc biệt cho CPay *@
+                    <div class="alert alert-success border-0 bg-success bg-opacity-10 d-flex align-items-center p-3 rounded-3 mb-4">
+                        <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                        <div>
+                            <h6 class="alert-heading fw-bold mb-1 text-success">Đã nhận đủ tiền thanh toán</h6>
+                            <p class="mb-0 small text-dark">Bạn không cần thanh toán thêm bất kỳ khoản phí phòng nào khi đến nhận phòng (trừ các dịch vụ phát sinh khác).</p>
+                        </div>
+                    </div>
+
+                    <h5 class="fw-bold border-bottom pb-2 mb-3 text-primary">Chi tiết đơn hàng #@Model.MaDatPhong</h5>
+
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <p class="mb-1 text-muted small uppercase fw-bold tracking-wider">Khách hàng</p>
+                            <p class="fw-bold">@(khach?.HoTen ?? "N/A")</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-1 text-muted small uppercase fw-bold tracking-wider">Phòng đã chọn</p>
+                            <p class="fw-bold text-blue-700">@(phong?.LoaiPhong ?? "N/A")</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-1 text-muted small uppercase fw-bold tracking-wider">Thời gian nhận phòng</p>
+                            <p class="fw-bold"><i class="bi bi-calendar-event me-2"></i>@Model.NgayNhan?.ToString("dd/MM/yyyy")</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="mb-1 text-muted small uppercase fw-bold tracking-wider">Thời gian trả phòng</p>
+                            <p class="fw-bold"><i class="bi bi-calendar-x me-2"></i>@Model.NgayTra?.ToString("dd/MM/yyyy")</p>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-3 bg-light rounded-3 border">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <p class="mb-0 text-muted small">Phương thức: <span class="badge bg-primary">Ví CPay</span></p>
+                                        <p class="mb-0 text-muted small">Mã giao dịch: <span class="font-monospace">@DateTime.Now.Ticks</span></p>
+                                    </div>
+                                    <div class="text-end">
+                                        <p class="mb-0 text-muted small">Tổng tiền đã trả</p>
+                                        <h3 class="text-danger fw-black mb-0">@Model.TongTien.ToString("N0") VNĐ</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-5">
+                        <p class="text-muted small italic mb-4">
+                            Hóa đơn điện tử đã được gửi tới hòm thư cá nhân của bạn.<br />
+                            Vui lòng mang theo CCCD khi đến làm thủ tục check-in.
+                        </p>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <a asp-controller="Phong" asp-action="Index" class="btn btn-outline-primary px-4 rounded-pill">
+                                <i class="bi bi-house-door me-2"></i>Trang chủ
+                            </a>
+                            <a asp-controller="DatPhong" asp-action="LichSuDatPhong" class="btn btn-primary px-4 rounded-pill shadow">
+                                <i class="bi bi-receipt me-2"></i>Xem lịch sử đặt phòng
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-white border-0 text-center pb-4">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=VERIFIED_BY_SEAHOTEL_@Model.MaDatPhong" alt="QR Verified" class="opacity-50" />
+                    <p class="text-[10px] text-uppercase text-muted mt-2 tracking-widest">Hệ thống SeaHotel Security & Fintech &copy; 2025</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .shadow-2xl {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
+    .fw-black {
+        font-weight: 900;
+    }
+
+    .tracking-wider {
+        letter-spacing: 0.05em;
+    }
+</style>

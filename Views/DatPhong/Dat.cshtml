@@ -1,0 +1,242 @@
+﻿@model DACN.Models.DatPhongViewModel
+
+@{
+    ViewData["Title"] = "Đặt phòng";
+
+    var todayDateTime = DateTime.Today;
+    var todayString = todayDateTime.ToString("yyyy-MM-dd");
+
+    // Khai báo đối tượng phòng từ ViewBag
+    var phong = ViewBag.Phong as DACN.Models.Phong;
+
+    // Đảm bảo Model có giá trị mặc định cho NgayNhan/NgayTra
+    if (Model.NgayNhan == DateTime.MinValue || Model.NgayNhan < todayDateTime)
+    {
+        Model.NgayNhan = todayDateTime;
+    }
+    if (Model.NgayTra == DateTime.MinValue || Model.NgayTra <= Model.NgayNhan)
+    {
+        Model.NgayTra = Model.NgayNhan.AddDays(1);
+    }
+
+    // ⭐ CHUẨN BỊ ĐƯỜNG DẪN ẢNH ĐỂ DÙNG TRỰC TIẾP TRONG THẺ IMG ⭐
+    var dynamicImagePath = string.IsNullOrEmpty(phong?.HinhAnh)
+        ? "/images/default.jpg" // Dùng đường dẫn tuyệt đối bắt đầu bằng /
+        : $"/HinhAnh/{phong.HinhAnh}"; // Dùng đường dẫn tuyệt đối bắt đầu bằng /
+
+
+}
+
+<div class="container py-5">
+    <h2 class="mb-5 text-center fw-bold text-dark">
+        <i class="bi bi-calendar-check me-2 text-primary"></i> XÁC NHẬN ĐẶT PHÒNG
+    </h2>
+
+    <div class="row justify-content-center">
+        @if (phong != null)
+        {
+            @* --- CỘT TRÁI: THÔNG TIN PHÒNG --- *@
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 shadow-lg border-0 rounded-4 overflow-hidden bg-white">
+                    <div class="position-relative">
+                        <div class="card-img-top-wrapper">
+
+                            @* ⭐ ĐÃ SỬA: SỬ DỤNG ĐƯỜNG DẪN TRỰC TIẾP KHÔNG DÙNG @Url.Content() để loại trừ lỗi cú pháp Razor *@
+                            <img src="@Url.Content(phong.HinhAnh)" class="card-img-top room-card-img"
+                                 alt="@phong.LoaiPhong"
+                                 loading="lazy" />
+                        </div>
+
+                        <div class="position-absolute bottom-0 start-0 p-3 bg-dark bg-opacity-50 w-100">
+                            <h3 class="card-title text-white mb-0">@phong.LoaiPhong</h3>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <p class="text-muted small">Mô tả chi tiết:</p>
+                        <p class="card-text text-dark">@phong.MoTa</p>
+                        <hr class="my-3">
+                        <h4 class="fw-bold text-danger">
+                            Giá: @phong.GiaPhong.ToString("N0") VNĐ <small class="text-secondary fw-normal">/ đêm</small>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @* --- CỘT PHẢI: FORM ĐẶT PHÒNG --- *@
+        <div class="col-lg-6 mb-4">
+            <form asp-action="Dat" method="post" class="card p-4 shadow-lg border-0 rounded-4 bg-light-subtle">
+                <h4 class="mb-4 fw-bold text-primary">Thông tin đặt chỗ</h4>
+
+                @* ⭐ HIỂN THỊ TẤT CẢ LỖI VALIDATION (đã fix lỗi KhachHang required trong ViewModel) ⭐ *@
+                @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
+
+                <input type="hidden" asp-for="MaPhong" value="@phong?.MaPhong" />
+                <input type="hidden" asp-for="GiaPhong" value="@phong?.GiaPhong" />
+
+                @* Ngày nhận phòng *@
+                <div class="form-floating mb-3">
+                    <input asp-for="NgayNhan" class="form-control" type="date"
+                           min="@todayString"
+                           value="@Model.NgayNhan.ToString("yyyy-MM-dd")"
+                           id="ngayNhan" required placeholder="Ngày nhận phòng" />
+                    <label for="ngayNhan" class="fw-bold text-primary">Ngày nhận phòng</label>
+                </div>
+
+                @* Ngày trả phòng *@
+                <div class="form-floating mb-3">
+                    <input asp-for="NgayTra" class="form-control" type="date"
+                           min="@todayString"
+                           value="@Model.NgayTra.ToString("yyyy-MM-dd")"
+                           id="ngayTra" required placeholder="Ngày trả phòng" />
+                    <label for="ngayTra" class="fw-bold text-primary">Ngày trả phòng</label>
+                    <span asp-validation-for="NgayTra" class="text-danger small mt-1"></span>
+                </div>
+
+                @* Hình thức thanh toán *@
+                <div class="form-group mb-4">
+                    <label asp-for="HinhThucThanhToan" class="form-label fw-bold text-primary">Hình thức thanh toán</label>
+                    <select asp-for="HinhThucThanhToan" class="form-select form-select-lg" required>
+                        <option value="">-- Chọn hình thức thanh toán --</option>
+                        <option value="ThanhToanSau">Thanh toán sau (Tại quầy)</option>
+                        <option value="VNPay">Thanh toán VNPay (Trực tuyến)</option>
+                        <option value="MoMo">Thanh toán MoMo (Trực tuyến)</option>
+                        <option value="CPay">Ví điện tử CPay (Trực tuyến)</option>
+                    </select>
+                    <span asp-validation-for="HinhThucThanhToan" class="text-danger small mt-1"></span>
+                </div>
+
+                @* Tổng tiền *@
+                <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-white rounded-3 border">
+                    <span class="fw-bold text-dark fs-5">TỔNG TIỀN THANH TOÁN:</span>
+                    <span class="fw-bolder fs-4 text-danger">
+                        <span id="tongTien">@Model.TongTien.ToString("N0")</span> VNĐ
+                    </span>
+                </div>
+
+                @* Nút xác nhận *@
+                <button class="btn btn-warning btn-lg fw-bold rounded-pill text-dark shadow-sm custom-hover-effect" type="submit">
+                    XÁC NHẬN ĐẶT PHÒNG
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    @if (phong != null)
+    {
+        <script>
+            // Sử dụng GiaPhong từ Model
+            const giaPhong = parseFloat(@Model.GiaPhong);
+            const tongTienEl = document.getElementById("tongTien");
+            const ngayNhanEl = document.getElementById("ngayNhan");
+            const ngayTraEl = document.getElementById("ngayTra");
+            const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+            // Hàm tính số ngày thuê an toàn
+            function dateDiffInDays(a, b) {
+                const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+                const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+                return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+            }
+
+            // Hàm tính Tổng tiền (Đã fix lỗi logic tính toán nếu có)
+            function tinhTongTien() {
+                const nhanValue = ngayNhanEl.value;
+                const traValue = ngayTraEl.value;
+
+                if (!nhanValue || !traValue) {
+                    tongTienEl.textContent = "0";
+                    return;
+                }
+
+                // Cập nhật min date cho Ngày trả (không được trước Ngày nhận)
+                ngayTraEl.min = nhanValue;
+
+                const nhan = new Date(nhanValue);
+                const tra = new Date(traValue);
+
+                const soNgay = dateDiffInDays(nhan, tra);
+
+                // Nếu số ngày < 1, tức là ngày trả trước hoặc bằng ngày nhận
+                if (soNgay < 1) {
+                    tongTienEl.textContent = "0";
+                    return;
+                }
+
+                const tong = soNgay * giaPhong;
+                // Định dạng lại tiền tệ Việt Nam
+                tongTienEl.textContent = tong.toLocaleString('vi-VN');
+            }
+
+            // Gán sự kiện thay đổi
+            ngayNhanEl.addEventListener("change", tinhTongTien);
+            ngayTraEl.addEventListener("change", tinhTongTien);
+
+            // Chạy lần đầu tiên sau khi DOM load để tính tổng tiền mặc định
+            // Thay thế DOMContentLoaded bằng window.onload hoặc chạy trực tiếp vì script nằm trong section
+            window.onload = tinhTongTien;
+        </script>
+    }
+
+
+}
+
+<style>
+    /* CSS TÙY CHỈNH CHO GIAO DIỆN HIỆN ĐẠI HƠN */
+    .container {
+        max-width: 1200px;
+    }
+
+    /* Thiết lập form control hiện đại hơn */
+    .form-control, .form-select {
+        border-radius: 0.5rem;
+        border: 1px solid #ced4da;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        height: calc(3.5rem + 2px); /* Tăng chiều cao cho form-floating */
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+    /* Màu nền nhẹ cho form đặt phòng */
+    .bg-light-subtle {
+        background-color: #f8f9fa !important;
+    }
+
+    /* Hiệu ứng hover cho nút XÁC NHẬN ĐẶT PHÒNG */
+    .custom-hover-effect:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(255, 183, 3, 0.5) !important;
+        opacity: 1;
+    }
+
+    /* Tăng độ nổi bật cho tổng tiền */
+    .text-danger {
+        color: #e63946 !important; /* Đỏ tươi hơn */
+    }
+
+    .text-primary {
+        color: #0a9396 !important; /* Xanh Navy hiện đại */
+    }
+    /* Thêm CSS cho ảnh để đảm bảo không bị ẩn */
+    .card-img-top-wrapper {
+        height: 250px; /* Chiều cao cố định cho container ảnh */
+        overflow: hidden; /* Cắt ảnh nếu tràn */
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+</style>

@@ -1,0 +1,185 @@
+﻿@model IEnumerable<DACN.Models.DatPhong>
+
+@{
+    ViewData["Title"] = "Quản lý Đặt Phòng";
+}
+
+@* Định nghĩa hàm trợ giúp định dạng ngày *@
+@functions {
+    private string FormatDateSafe(object maybeDate, string format = "dd/MM/yyyy")
+    {
+        if (maybeDate == null) return string.Empty;
+
+        if (maybeDate is DateTime dt)
+            return dt.ToString(format);
+
+        if (maybeDate is DateTime?)
+        {
+            var nd = (DateTime?)maybeDate;
+            return nd.HasValue ? nd.Value.ToString(format) : string.Empty;
+        }
+
+        return maybeDate.ToString();
+    }
+}
+
+<style>
+        :root {
+                --bs-primary: #0a9396; /* Xanh Navy */
+                --bs-warning: #ffb703; /* Vàng */
+                --bs-danger: #e63946; /* Đỏ */
+
+    }
+
+        .text-primary {
+                color: var(--bs-primary) !important;
+
+    }
+
+
+    /* Thiết kế Card Đặt Phòng */
+        .booking-card {
+                border-radius: 0.75rem;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                border: 1px solid #eee;
+                overflow: hidden;
+
+    }
+
+                .booking-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+
+        }
+
+        .card-img-top-custom {
+                height: 150px;
+                width: 100%;
+                object-fit: cover;
+
+    }
+
+        .card-title-booking {
+                font-size: 1.1rem;
+                color: var(--bs-primary);
+                font-weight: 700;
+
+    }
+
+        .booking-detail-item {
+                font-size: 0.9rem;
+                margin-bottom: 5px;
+
+    }
+
+            .booking-detail-item strong {
+                    color: #343a40;
+
+    }
+</style>
+
+<div class="container py-5">
+    <h2 class="mb-5 text-center fw-bolder text-primary">🛎️ QUẢN LÝ ĐẶT PHÒNG</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success text-center rounded-3 shadow-sm">
+            <i class="bi bi-check-circle-fill me-2"></i>@TempData["Message"]
+        </div>
+    }
+
+    @* --- KHỐI LỌC VÀ TÌM KIẾM CẬP NHẬT --- *@
+    <form method="get" class="row g-3 mb-5 p-3 bg-light rounded-4 shadow-sm align-items-end">
+
+        <div class="col-md-6 col-lg-3">
+            <label class="form-label fw-semibold small text-muted">Mã đơn/Ghi chú</label>
+            <input type="text" name="search" value="@ViewBag.Search" class="form-control" placeholder="🔍 Mã đặt phòng/Ghi chú...">
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <label class="form-label fw-semibold small text-muted">Tên khách hàng</label>
+            <input type="text" name="customerName" value="@ViewBag.CustomerName" class="form-control" placeholder="👤 Tên khách hàng...">
+        </div>
+
+        <div class="col-md-4 col-lg-3">
+            <label class="form-label fw-semibold small text-muted">Hình thức thanh toán</label>
+            <select name="paymentType" class="form-select">
+                <option value="">-- Tất cả --</option>
+                <option value="VNPay" selected="@(ViewBag.PaymentType == "VNPay")">VNPay</option>
+                <option value="MoMo" selected="@(ViewBag.PaymentType == "MoMo")">MoMo</option>
+                <option value="Tiền mặt" selected="@(ViewBag.PaymentType == "Tiền mặt")">Tiền mặt</option>
+            </select>
+        </div>
+
+        @* Đặt nút Lọc và Reset nằm trên cùng một dòng (col-lg-3) *@
+        <div class="col-md-4 col-lg-1">
+            <button type="submit" class="btn btn-primary w-100 rounded-pill">
+                <i class="bi bi-funnel-fill me-1"></i> Lọc
+            </button>
+        </div>
+        <div class="col-md-4 col-lg-1">
+            <a href="/AdminBooking" class="btn btn-secondary w-100 rounded-pill">
+                <i class="bi bi-x-circle-fill me-1"></i> Reset
+            </a>
+        </div>
+    </form>
+    @* --- DANH SÁCH ĐẶT PHÒNG (CARD GRID) --- *@
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @if (!Model?.Any() ?? true)
+        {
+            <div class="col-12">
+                <div class="alert alert-info text-center rounded-4 p-4 shadow-sm" role="alert">
+                    <h5 class="mb-0"><i class="bi bi-info-circle-fill me-2"></i> Không có đơn đặt phòng nào được tìm thấy.</h5>
+                </div>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card booking-card h-100 shadow-sm">
+
+                        @* Giả định Phong có thuộc tính HinhAnh *@
+                        @{
+                            string imagePath = !string.IsNullOrEmpty(item.Phong?.HinhAnh) ? item.Phong.HinhAnh : "/images/default-room.jpg"; // Thêm ảnh mặc định nếu cần
+                        }
+                        <img src="@imagePath" class="card-img-top-custom" alt="Ảnh phòng @item.Phong?.LoaiPhong" onerror="this.onerror=null;this.src='/images/default-room.jpg';" />
+
+                        <div class="card-body">
+                            <h5 class="card-title-booking mb-3">Mã Đơn: #@item.MaDatPhong</h5>
+
+                            <div class="booking-detail-item">
+                                <strong><i class="bi bi-door-open-fill"></i> Phòng:</strong> @item.Phong?.LoaiPhong
+                            </div>
+                            <div class="booking-detail-item">
+                                <strong><i class="bi bi-person-fill"></i> Khách hàng:</strong> @item.KhachHang?.HoTen
+                            </div>
+                            <div class="booking-detail-item">
+                                <strong><i class="bi bi-calendar-check"></i> Ngày nhận phòng:</strong> @FormatDateSafe(item.NgayNhan, "dd/MM/yyyy")
+                            </div>
+                            <div class="booking-detail-item">
+                                <strong><i class="bi bi-credit-card-2-front-fill"></i> Thanh toán:</strong>
+                                <span class="badge bg-primary">@item.HinhThucThanhToan</span>
+                            </div>
+                            <div class="booking-detail-item text-muted small">
+                                <strong>Ghi chú:</strong> @(string.IsNullOrEmpty(item.GhiChu) ? "Không có" : item.GhiChu)
+                            </div>
+                        </div>
+
+                        @* Footer Thao tác *@
+                        <div class="card-footer bg-light d-flex justify-content-between gap-2 p-3">
+                            <a asp-action="Edit" asp-route-id="@item.MaDatPhong" class="btn btn-warning btn-sm fw-bold w-50 rounded-pill">
+                                ✏️ Sửa
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.MaDatPhong" class="btn btn-danger btn-sm fw-bold w-50 rounded-pill"
+                                               onclick="return confirm('Bạn có chắc chắn muốn xóa đơn đặt phòng #@item.MaDatPhong này không?')">
+                                🗑️ Xóa
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

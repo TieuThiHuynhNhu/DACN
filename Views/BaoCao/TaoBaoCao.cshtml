@@ -1,0 +1,38 @@
+﻿@model DACN.Models.BaoCao
+@{
+    ViewData["Title"] = "Tạo Báo Cáo";
+}
+
+<h2 class="mb-4 text-center" style="color:#005f73;">Tạo Báo Cáo Mới - SeaHotel</h2>
+
+<form asp-action="TaoBaoCao" method="post" class="card p-4 shadow-sm" style="background-color:#ffffff; max-width:600px; margin:auto;">
+    <div class="form-group mb-3">
+        <label style="font-weight:bold; color:#0077b6;">Loại báo cáo</label>
+        <select asp-for="LoaiBaoCao" class="form-control" asp-items="@(new SelectList(ViewBag.LoaiBaoCaoList))"></select>
+    </div>
+
+    <div class="form-group mb-3">
+        <label style="font-weight:bold; color:#0077b6;">Phạm vi thời gian</label>
+        <input asp-for="PhamViThoiGian" class="form-control" placeholder="VD: Tháng 10/2025" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label style="font-weight:bold; color:#0077b6;">Người tạo</label>
+        <input asp-for="NguoiTao" class="form-control" value="Admin" />
+    </div>
+
+    <button type="submit" class="btn w-100" style="background-color:#ffb703; color:#000; font-weight:bold;">Tạo Báo Cáo</button>
+</form>
+
+<style>
+    /* Hover nhẹ cho card */
+    .card:hover {
+        transform: translateY(-3px);
+        transition: transform 0.2s;
+    }
+
+    /* Hover cho nút */
+    .btn:hover {
+        opacity: 0.9;
+    }
+</style>
