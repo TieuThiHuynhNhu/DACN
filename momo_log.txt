@@ -1,0 +1,13 @@
+
+=== RAW DATA ===
+accessKey=F8BBA842ECF85&amount=10500000.0&extraData=&ipnUrl=https://localhost:7049/Payment/SavePayment&orderId=638972338443933203&orderInfo=Khách hàng: Hotel. Nội dung: Thanh toán đặt hàng qua Momo tại Hotel&partnerCode=MOMOXXXX20240901&redirectUrl=https://localhost:7049/Payment/PaymentConfirm&requestId=2b13c858-7e2c-4eda-906f-6c72389d4267&requestType=captureWallet
+=== SIGNATURE ===
+990512b355deffe1af3ab9b038befe7d9a6fbd984be1398c10100ad6f48324ff
+=== REQUEST BODY ===
+{"partnerCode":"MOMOXXXX20240901","partnerName":"MoMoTest","storeId":"MoMoTestStore","requestId":"2b13c858-7e2c-4eda-906f-6c72389d4267","amount":"10500000.0","orderId":"638972338443933203","orderInfo":"Khách hàng: Hotel. Nội dung: Thanh toán đặt hàng qua Momo tại Hotel","redirectUrl":"https://localhost:7049/Payment/PaymentConfirm","ipnUrl":"https://localhost:7049/Payment/SavePayment","requestType":"captureWallet","extraData":"","lang":"vi","signature":"990512b355deffe1af3ab9b038befe7d9a6fbd984be1398c10100ad6f48324ff"}
+=== RAW DATA ===
+accessKey=F8BBA842ECF85&amount=2600000.0&extraData=&ipnUrl=https://localhost:7049/Payment/SavePayment&orderId=638972341975632666&orderInfo=Khách hàng: Hotel. Nội dung: Thanh toán đặt hàng qua Momo tại Hotel&partnerCode=MOMO&redirectUrl=https://localhost:7049/Payment/PaymentConfirm&requestId=a8ee9e62-443f-47df-8e75-9d99a4331769&requestType=captureWallet
+=== SIGNATURE ===
+6e7fac90d2e07c402765e65b7739166905260a0bf6f8cb2fcff27f719cbc9bfd
+=== REQUEST BODY ===
+{"partnerCode":"MOMO","partnerName":"MoMoTest","storeId":"MoMoTestStore","requestId":"a8ee9e62-443f-47df-8e75-9d99a4331769","amount":2600000,"orderId":"638972341975632666","orderInfo":"Khách hàng: Hotel. Nội dung: Thanh toán đặt hàng qua Momo tại Hotel","redirectUrl":"https://localhost:7049/Payment/PaymentConfirm","ipnUrl":"https://localhost:7049/Payment/SavePayment","requestType":"captureWallet","extraData":"","lang":"vi","signature":"6e7fac90d2e07c402765e65b7739166905260a0bf6f8cb2fcff27f719cbc9bfd"}
