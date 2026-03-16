@@ -1,0 +1,765 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\DACN.bundle.scp.css",
+      "PackagePath": "staticwebassets\\DACN.2cwl6zxejx.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\05db4210-fdb4-4b06-bfc1-7abe769ce62d.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\05db4210-fdb4-4b06-bfc1-7abe769ce62d.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\0903f826-54f3-45e8-96f1-d543abd4f7d4.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\0903f826-54f3-45e8-96f1-d543abd4f7d4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\158b6843-38cc-4ff0-985b-bf56d971fdd9.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\158b6843-38cc-4ff0-985b-bf56d971fdd9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\1cf2e8c6-63d9-43d5-b2a4-05f7874c7994.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\1cf2e8c6-63d9-43d5-b2a4-05f7874c7994.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\562865d5-7e48-44f4-b868-06cac92c0735.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\562865d5-7e48-44f4-b868-06cac92c0735.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\56b21c42-af63-4f0a-a7c8-62707002a723.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\56b21c42-af63-4f0a-a7c8-62707002a723.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\578bc83b-fa49-4670-9a2f-a79ac830f149.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\578bc83b-fa49-4670-9a2f-a79ac830f149.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\5c52e09a-ec18-4d84-8c0b-8d0094bcb788.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\5c52e09a-ec18-4d84-8c0b-8d0094bcb788.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\75309d1e-4251-4c7b-b9f0-bd3914db9fcd.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\75309d1e-4251-4c7b-b9f0-bd3914db9fcd.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\7e647b20-9e00-426c-9349-2a3309261977.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\7e647b20-9e00-426c-9349-2a3309261977.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\80313c1d-6590-44aa-bf1e-4e543db35929.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\80313c1d-6590-44aa-bf1e-4e543db35929.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\85ec0927-2bf0-4960-9f47-64cf30212352.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\85ec0927-2bf0-4960-9f47-64cf30212352.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\94e801f7-711c-4eae-80f0-beb384350bc9.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\94e801f7-711c-4eae-80f0-beb384350bc9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\9507f8e2-68f6-4819-9bcc-e253df86689a.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\9507f8e2-68f6-4819-9bcc-e253df86689a.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\9ef0c36f-99af-43e7-a7a1-cba4a2279f5e.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\9ef0c36f-99af-43e7-a7a1-cba4a2279f5e.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Ansangbuffet.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Ansangbuffet.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\DuaDouaDonSsanBay.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\DuaDouaDonSsanBay.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Giacui.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Giacui.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\GoiMonTaiPhong.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\GoiMonTaiPhong.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\HoBoi.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\HoBoi.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong1.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong10.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong11.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong11.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong12.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong12.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong13.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong13.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong14.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong14.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong15.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong15.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong16.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong16.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong17.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong17.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong18.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong18.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong2.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong3.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong4.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong5.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong6.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong7.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong8.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Phong9.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Phong9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\PhongHoiThao.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\PhongHoiThao.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Screenshot 2025-11-29 212937.png",
+      "PackagePath": "staticwebassets\\HinhAnh\\Screenshot 2025-11-29 212937.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Screenshot 2025-11-29 213011.png",
+      "PackagePath": "staticwebassets\\HinhAnh\\Screenshot 2025-11-29 213011.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Screenshot 2025-11-29 213216.png",
+      "PackagePath": "staticwebassets\\HinhAnh\\Screenshot 2025-11-29 213216.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Screenshot 2025-11-29 213254.png",
+      "PackagePath": "staticwebassets\\HinhAnh\\Screenshot 2025-11-29 213254.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\Spa_thu_gian_toan_than.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\Spa_thu_gian_toan_than.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\ThueXe.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\ThueXe.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\TourDuLich.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\TourDuLich.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\XeMay.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\XeMay.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\a74f37d5-42c2-43c5-8077-34d4d8d8a512.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\a74f37d5-42c2-43c5-8077-34d4d8d8a512.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\ba4cf750-19af-4e4c-adf7-71f7fa26b00f.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\ba4cf750-19af-4e4c-adf7-71f7fa26b00f.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\baffa720-ea86-4b52-8d04-c14260baa309.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\baffa720-ea86-4b52-8d04-c14260baa309.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\cham_soc_da_mat.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\cham_soc_da_mat.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\cham_soc_mong_tay.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\cham_soc_mong_tay.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\d0d59126-7525-49a7-98c9-1ef609e3abf2.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\d0d59126-7525-49a7-98c9-1ef609e3abf2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\d3dab476-9f43-4907-8cf2-73458eb2ca63.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\d3dab476-9f43-4907-8cf2-73458eb2ca63.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\d904efa6-6cd2-43f8-8541-4b31442dd3de.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\d904efa6-6cd2-43f8-8541-4b31442dd3de.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\dap_mat_na_duong_am.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\dap_mat_na_duong_am.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\dbe0d900-1a9a-4d72-9b36-9e90fa65ef53.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\dbe0d900-1a9a-4d72-9b36-9e90fa65ef53.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\dcc032a7-f636-4f4c-aba1-ffbc44fe3a87.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\dcc032a7-f636-4f4c-aba1-ffbc44fe3a87.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\e403f24e-7da8-4e2d-9744-25af34d0d6ab.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\e403f24e-7da8-4e2d-9744-25af34d0d6ab.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\f2f36ceb-b6be-4f94-93d6-e6248681eae3.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\f2f36ceb-b6be-4f94-93d6-e6248681eae3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\f6d341e5-926f-4c17-b0f9-d9c670400a83.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\f6d341e5-926f-4c17-b0f9-d9c670400a83.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\goi_dau_collagen.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\goi_dau_collagen.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\goi_dau_duong_sinh.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\goi_dau_duong_sinh.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\goi_dau_massage.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\goi_dau_massage.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\km.anh1.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\km.anh1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\km.anh2.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\km.anh2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\km.anh3.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\km.anh3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\km.anh4.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\km.anh4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\km.anh5.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\km.anh5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\km.anh6.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\km.anh6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\km.anh7.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\km.anh7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\massage_da_nong.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\massage_da_nong.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\massage_toan_than.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\massage_toan_than.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\massage_vai_co.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\massage_vai_co.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\ngam_chan_thao_duoc.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\ngam_chan_thao_duoc.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\spa-mong-toan-dien.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\spa-mong-toan-dien.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\HinhAnh\\xong_hoi_thao_duoc.jpg",
+      "PackagePath": "staticwebassets\\HinhAnh\\xong_hoi_thao_duoc.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\fonts\\ARIAL.TTF",
+      "PackagePath": "staticwebassets\\fonts\\ARIAL.TTF"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\ae27c57c-be3b-4bfb-9b91-b2446d1ed106_Screenshot 2025-11-29 213340.png",
+      "PackagePath": "staticwebassets\\hinh_ks\\ae27c57c-be3b-4bfb-9b91-b2446d1ed106_Screenshot 2025-11-29 213340.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\b5d84511-c083-4c2a-91c9-b29846e20154_Screenshot 2025-11-29 213011.png",
+      "PackagePath": "staticwebassets\\hinh_ks\\b5d84511-c083-4c2a-91c9-b29846e20154_Screenshot 2025-11-29 213011.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\d5c6393f-a2d6-40b9-a25c-4621e0e5eb0e_Screenshot 2025-11-29 213028.png",
+      "PackagePath": "staticwebassets\\hinh_ks\\d5c6393f-a2d6-40b9-a25c-4621e0e5eb0e_Screenshot 2025-11-29 213028.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\dcbec040-bdfd-441c-abd7-c3f9b9ca1145_Screenshot 2025-11-29 212937.png",
+      "PackagePath": "staticwebassets\\hinh_ks\\dcbec040-bdfd-441c-abd7-c3f9b9ca1145_Screenshot 2025-11-29 212937.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh1.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh10.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh10.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh11.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh11.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh12.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh12.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh13.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh13.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh14.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh14.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh15.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh15.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh16.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh16.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh17.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh17.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh18.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh18.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh2.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh3.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh4.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh5.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh6.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh7.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh8.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\hinh9.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\hinh9.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\hinh_ks\\z6817351329514_addebc4cc9eb9947130e56c3c0ec08a4.jpg",
+      "PackagePath": "staticwebassets\\hinh_ks\\z6817351329514_addebc4cc9eb9947130e56c3c0ec08a4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\images\\KhachHang\\default.jpg",
+      "PackagePath": "staticwebassets\\images\\KhachHang\\default.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\images\\nhanvien\\default.jpg",
+      "PackagePath": "staticwebassets\\images\\nhanvien\\default.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\images\\nhanvien\\z6971257752323_561e9a967414bad1428112f5afe335b1.jpg",
+      "PackagePath": "staticwebassets\\images\\nhanvien\\z6971257752323_561e9a967414bad1428112f5afe335b1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\images\\social\\facebook.png",
+      "PackagePath": "staticwebassets\\images\\social\\facebook.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\images\\social\\instagram.png",
+      "PackagePath": "staticwebassets\\images\\social\\instagram.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\images\\social\\tiktok.png",
+      "PackagePath": "staticwebassets\\images\\social\\tiktok.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\images\\social\\youtube.png",
+      "PackagePath": "staticwebassets\\images\\social\\youtube.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\js\\chat-popup.js",
+      "PackagePath": "staticwebassets\\js\\chat-popup.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\security-app\\monitor.html",
+      "PackagePath": "staticwebassets\\security-app\\monitor.html"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\chamcong\\2071d9e8-7417-4324-abc6-48e15719af90.png",
+      "PackagePath": "staticwebassets\\uploads\\chamcong\\2071d9e8-7417-4324-abc6-48e15719af90.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\chamcong\\23719bfb-0a7a-441b-9a6a-2dcb78a6aa86.png",
+      "PackagePath": "staticwebassets\\uploads\\chamcong\\23719bfb-0a7a-441b-9a6a-2dcb78a6aa86.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\chamcong\\494ef0a5-6755-4aee-b98c-8fcfbf838d7c.png",
+      "PackagePath": "staticwebassets\\uploads\\chamcong\\494ef0a5-6755-4aee-b98c-8fcfbf838d7c.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\chamcong\\55dcdff2-08f3-40b2-b090-70fbcc7229ef.png",
+      "PackagePath": "staticwebassets\\uploads\\chamcong\\55dcdff2-08f3-40b2-b090-70fbcc7229ef.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\chamcong\\5610bd36-8e38-4bf8-b313-677a9c2f5d16.png",
+      "PackagePath": "staticwebassets\\uploads\\chamcong\\5610bd36-8e38-4bf8-b313-677a9c2f5d16.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\chamcong\\57e8622d-2ac9-43f4-93fd-508080cd8b17.png",
+      "PackagePath": "staticwebassets\\uploads\\chamcong\\57e8622d-2ac9-43f4-93fd-508080cd8b17.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\chamcong\\a038357f-3b5c-424e-b90e-430d2377584c.png",
+      "PackagePath": "staticwebassets\\uploads\\chamcong\\a038357f-3b5c-424e-b90e-430d2377584c.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\chamcong\\c497634e-4398-4406-a7c8-92c7dd0de20c.png",
+      "PackagePath": "staticwebassets\\uploads\\chamcong\\c497634e-4398-4406-a7c8-92c7dd0de20c.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\chamcong\\d0fee479-b541-4656-9173-2013ee8f9e9e.png",
+      "PackagePath": "staticwebassets\\uploads\\chamcong\\d0fee479-b541-4656-9173-2013ee8f9e9e.png"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\hu_hai\\25ec5fee-f799-4041-be1a-cb5eb5fc0528.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hu_hai\\25ec5fee-f799-4041-be1a-cb5eb5fc0528.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\hu_hai\\2f3791a1-2a78-4f9a-b5af-15febc10065c.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hu_hai\\2f3791a1-2a78-4f9a-b5af-15febc10065c.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\hu_hai\\7e807688-d261-43be-8ab0-c51ce11bec51.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hu_hai\\7e807688-d261-43be-8ab0-c51ce11bec51.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\hu_hai\\84c60db7-ae99-4595-be5e-61f561451a40.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hu_hai\\84c60db7-ae99-4595-be5e-61f561451a40.jpg"
+    },
+    {
+      "Id": "C:\\Users\\TIEU THI HUYNH NHU\\source\\repos\\DACN\\DACN\\wwwroot\\uploads\\hu_hai\\f5659140-1441-4534-b308-2d83a1d394ed.jpg",
+      "PackagePath": "staticwebassets\\uploads\\hu_hai\\f5659140-1441-4534-b308-2d83a1d394ed.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.DACN.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.DACN.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.DACN.props",
+      "PackagePath": "build\\DACN.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.DACN.props",
+      "PackagePath": "buildMultiTargeting\\DACN.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.DACN.props",
+      "PackagePath": "buildTransitive\\DACN.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
